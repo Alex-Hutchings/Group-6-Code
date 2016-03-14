@@ -94,7 +94,7 @@ echo "
               }
                 ?>
                 <div class="modules-lect-button">
-                    <a href="#" data-toggle="modal" data-target="#LectureModal"  data-backdrop="static" data-keyboard="false">Lecture1</a>
+                    <a href="" data-toggle="modal" data-target="#LectureModal"  data-backdrop="static" data-keyboard="false">Lecture1</a>
                     <button class="btn-md">Download</button>
                     <button class="btn-md" type="button" data-toggle="modal" data-target="#LectureModal"  data-backdrop="static" data-keyboard="false">Open</button>
                 </div>
@@ -161,18 +161,20 @@ echo "
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Lecture</h4>
-        </div>
-        <div class="modal-body">
+          </div>
+        <?php
+        $materialQuery = 'SELECT * FROM MATERIAL WHERE Module_ID="'.$_SESSION["moduleID"].'"';
+        $result = mysqli_query($db, $materialQuery);
+        while ($row = mysqli_fetch_assoc($result)){
+        $materialTitle = $row['Material_TITLE'];
+        $file = $row['File'];
+        echo "<div class='modal-body'>
+       <h4 class='modal-title'> ".$materialTitle." </h4>
           <div>
-              <iframe src="" width="80%;" height="350px;"></iframe>
-          </div>
-
-          <div class="lectureBTN">
-            <button><span class="glyphicon glyphicon-arrow-left"></span></button>
-            <button class="btn-md">Download</button>
-            <button><span class="glyphicon glyphicon-arrow-right"></span></button>
-          </div>
+              <iframe src=".$file." width='80%;' height='350px;'></iframe>
+          </div>";
+        }
+        ?>
 
             <div class="col-sm-6 ">
               <div class="panel panel-default lectureComments">
