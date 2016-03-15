@@ -174,40 +174,28 @@ echo "
               <iframe src=".$file." width='80%;' height='350px;'></iframe>
           </div>";
         }
-        ?>
-
-            <div class="col-sm-6 ">
-              <div class="panel panel-default lectureComments">
-                 <div class="panel-heading">Comments</div>
-                 <div class="panel-body">
-
-                     <div class="media">
-                      <div class="media-left">
-                          <span class="media-object"><b>Useruser123</b></span>
+        
+          echo "
+            <div class='col-sm-6 '>
+              <div class='panel panel-default lectureComments'>
+                 <div class='panel-heading'>Comments</div>
+                 <div class='panel-body'>";
+                  $query = 'SELECT * FROM MATERIAL_COMMENTS WHERE Module_ID="'.$_SESSION["moduleID"].'"';
+                  $result = mysqli_query($db, $query);
+                  while ($row = mysqli_fetch_assoc($result)){
+                  $comment = $row["Comment"];
+                  $user = $row["User_ID"];
+                    echo "
+                     <div class='media'>
+                      <div class='media-left'>
+                          <span class='media-object'><b>".$user."</b></span>
                       </div>
-                      <div class="media-body">
-                        <p>Something something something something somerthin.</p>
+                      <div class='media-body'>
+                        <p>".$comment."</p>
                       </div>
-                    </div>
-
-                     <div class="media">
-                      <div class="media-left">
-                          <span class="media-object"><b>Useruser123</b></span>
-                      </div>
-                      <div class="media-body">
-                        <p>Something something something something somerthin.</p>
-                      </div>
-                    </div>
-
-                     <div class="media">
-                      <div class="media-left">
-                          <span class="media-object"><b>Useruser123</b></span>
-                      </div>
-                      <div class="media-body">
-                        <p>Something something something something somerthin.</p>
-                      </div>
-                    </div>
-
+                    </div>";
+                  }
+                    ?>
                      <form class="form-inline">
                          <input type="text" class="form-control form-comments" placeholder="Enter comment">
                          <button type="submit" class="btn btn-sm">Send</button>
