@@ -92,29 +92,23 @@ echo "
                 echo"<h4> Module Description</h4>";
                 echo "<p>".$moduleDesc."</p>";
               }
+              echo"<h4>Lecture Material</h4>";
+
+              $query = 'SELECT * FROM MATERIAL WHERE Module_ID="'.$_SESSION["moduleID"].'"';
+                    $result = mysqli_query($db, $query);
+                    while ($row = mysqli_fetch_assoc($result)){
+                      $materialTitle = $row['Material_TITLE'];
+                      $materialLink = $row['File'];
+                	  echo"
+                	  <div class='modules-lect-button'>
+                	  <a href='' data-toggle='modal' data-target='#LectureModal'  data-backdrop='static' data-keyboard='false'>".$materialTitle."</a>
+                      <button class='btn-md' type='button' data-toggle='modal' data-target='#LectureModal'  data-backdrop='static' data-keyboard='false'>Open</button>
+                	  </div>";
+              }
                 ?>
-                <div class="modules-lect-button">
-                    <a href="" data-toggle="modal" data-target="#LectureModal"  data-backdrop="static" data-keyboard="false">Lecture1</a>
-                    <button class="btn-md">Download</button>
-                    <button class="btn-md" type="button" data-toggle="modal" data-target="#LectureModal"  data-backdrop="static" data-keyboard="false">Open</button>
-                </div>
-                <div class="modules-lect-button">
-                    <a href="#" data-toggle="modal" data-target="#LectureModal"  data-backdrop="static" data-keyboard="false">Lecture2</a>
-                    <button class="btn-md">Download</button>
-                    <button class="btn-md" type="button" data-toggle="modal" data-target="#LectureModal"  data-backdrop="static" data-keyboard="false">Open</button>
-                </div>
-                <div class="modules-lect-button">
-                    <a href="#" data-toggle="modal" data-target="#LectureModal"  data-backdrop="static" data-keyboard="false">Lecture3</a>
-                    <button class="btn-md">Download</button>
-                    <button class="btn-md" type="button" data-toggle="modal" data-target="#LectureModal"  data-backdrop="static" data-keyboard="false">Open</button>
-                </div>
-                <div class="modules-lect-button">
-                    <a href="#" data-toggle="modal" data-target="#LectureModal"  data-backdrop="static" data-keyboard="false">Lecture4</a>
-                    <button class="btn-md">Download</button>
-                    <button class="btn-md" type="button" data-toggle="modal" data-target="#LectureModal"  data-backdrop="static" data-keyboard="false">Open</button>
-                </div>
+
                 <h4>Other Material</h4>
-                <button class="btn-md">Download</button>
+                <button class="btn-md">View</button>
             </div>
         </div>
 
