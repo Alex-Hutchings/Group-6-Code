@@ -96,14 +96,15 @@ echo "
 
               $query = 'SELECT * FROM MATERIAL WHERE Module_ID="'.$_SESSION["moduleID"].'"';
                     $result = mysqli_query($db, $query);
+                    $i = 1;
                     while ($row = mysqli_fetch_assoc($result)){
                       $materialTitle = $row['Material_TITLE'];
                       $materialLink = $row['File'];
                 	  echo"
                 	  <div class='modules-lect-button'>
-                	  <a href='' data-toggle='modal' data-target='#LectureModal'  data-backdrop='static' data-keyboard='false'>".$materialTitle."</a>
-                      <button class='btn-md' type='button' data-toggle='modal' data-target='#LectureModal'  data-backdrop='static' data-keyboard='false'>Open</button>
+                	  <a href='' data-toggle='modal' data-target='#LectureModal'  data-backdrop='static' data-keyboard='false'>".$i.". ".$materialTitle."</a>
                 	  </div>";
+                	  $i++;
               }
                 ?>
 
