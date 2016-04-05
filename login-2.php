@@ -11,49 +11,35 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
   </head>
 
-
-
   <body style="background:#eee;">
     <div class="container">
-    		<br/>
         <br/>
-  		<div class="row">
-  			<div class="col-md-4"></div>
-  			<div class="col-md-4">
-  				<div class="panel panel-default">
-  					<div class="panel-body">
-    						<div class="page-header">
+        <br/>
+      <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+          <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="page-header">
                 <center><img id="logo" src="logo.png" width="275" alt="logo"/></center>
-						</div>
+            </div>
 
-						 <form class="form-signin" style="font-family: verdana" method="POST" action="module.php">
-  							<div class="form-group">
-    								<label for="enterusername">Username</label>
-    								<div class="input-group">
-  									<span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
-  									<input type="text" class="form-control" id="username" name="username" placeholder="Enter Username" autofocus required>
-								</div>
-  							</div>
-  							<div class="form-group">
-    								<label for="exampleInputPassword1">Password</label>
-    								<div class="input-group">
-  									<span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
-  									<input type="password" class="form-control" id="password" name="password" placeholder="Enter Password" required>
-								</div>
-  							</div>
-  							<hr/>
-  							<center><button type="submit" value='Submit' name='submit' class="btn btn-primary"><span class="glyphicon glyphicon-check"></span> Log in</button></center>
-
-  							<br/>
-						</form>
-
-  					</div>
-				</div>
-  			</div>
-		</div>
-    </div>
-<?php
-session_Start();
+             <form class="form-signin" style="font-family: verdana" method="POST" action="module.php">
+                <div class="form-group">
+                    <label for="enterusername">Username</label>
+                    <div class="input-group">
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+                    <input type="text" class="form-control" id="username" name="username" placeholder="Enter Username" autofocus required>
+                </div>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Password</label>
+                    <div class="input-group">
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+                    <input type="password" class="form-control" id="password" name="password" placeholder="Enter Password" required>
+                </div>
+                </div>
+                <?php
 $user = 'x';
 $pass = 'x';
 $DBserver = "csmysql.cs.cf.ac.uk"; //mysql server
@@ -66,6 +52,10 @@ if( $db === FALSE ){
  die();
 }
 
+if(isset($_SESSION["username"])){
+header('location:module.php');
+}
+else{
 $username = (isset($_POST["username"]) ? $_POST["username"] : null);
 $password= (isset($_POST["password"]) ? $_POST["password"] : null);
 
@@ -80,16 +70,29 @@ $result = mysqli_query($db, $command);
     while($row1 = mysqli_fetch_assoc($result)) {
     $pass = $row1['Pass'];
  }
+
 if($user == $username && $pass == $password){
-$_SESSION["username"] = $user;
-echo "Welcome";
+$_SESSION["username"] = $username;
+header('location:module.php');
 }
 else{
 if(null != $username){
-echo "Wrong username or password";
+echo "<center>Wrong username or password</center>";
+echo "<center>Please try again</center>";
+}
 }
 }
 ?>
+                <br/>
+                <center><button type="submit" value='Submit' name='submit' class="btn btn-primary"><span class="glyphicon glyphicon-check"></span> Log in</button></center>
+            </form>
+
+            </div>
+        </div>
+        </div>
+    </div>
+    </div>
+
 
 
 
