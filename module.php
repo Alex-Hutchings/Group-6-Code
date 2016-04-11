@@ -48,7 +48,7 @@ if(isset($_POST['username']))
                 <span class='glyphicon glyphicon-user'></span>
                 <span>Username: </span>
                 <span>".$_SESSION['username']."</span>
-                <a href='login-2.php'><button class='btn-md'>Log out</button>
+                <a href='logout.php'><button class='btn-md'>Log out</button>
               </div>
             </div><!-- /.navbar-collapse -->
           </div><!-- /.container-fluid -->

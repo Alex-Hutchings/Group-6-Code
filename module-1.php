@@ -10,7 +10,7 @@
     $(document).ready(function(){
         $(".FAQpanelhead").click(function(){
             $(".FAQpanelbody").toggle();
-            $(this).toggleClass('glyphicon-menu-up').toggleClass('glyphicon-menu-down');
+           // $(this).toggleClass('glyphicon-menu-up').toggleClass('glyphicon-menu-down');
         });
     });
 
@@ -33,6 +33,7 @@
 <body>
 <?php
 session_start();
+$_SESSION['username'] = $_SESSION['username'];
 $_SESSION['moduleID'] = $_POST['moduleID'];
 echo "
     <div class='container-fluid'>
@@ -44,26 +45,26 @@ echo "
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
-            <form action='Working_MSR_With_userlist.php' method='POST'>
+            <form action='' method='POST'>
             <div class='collapse navbar-collapse' id='bs-example-navbar-collapse-1'>
               <ul class='nav navbar-nav intelekt-nav-left'>
                 <li><a href='module.php'><img src='ModulesIcon.png' width='50%'></a></li>
-                <li><a href='Working_MSR_With_userlist.php'?moduleID=".$_SESSION['moduleID']."'><img src='MSRicon.png' width='50%'></a></li>              
-                <li><a href='module.php'><img src='forumsicon.png' width='50%'></a></li>
+                <li><a href='Working_MSR_With_userlist.php'?moduleID=".$_SESSION['moduleID']."><img src='MSRicon.png' width='50%'></a></li>             
+                <li><a href='forumNew.php'><img src='forumsicon.png' width='50%'></a></li>
               </ul>
-              </form>";
-              ?>
-              <div class="nav navbar-nav navbar-right">
-                <span class="glyphicon glyphicon-user"></span>
+              </form>
+              
+              <div class='nav navbar-nav navbar-right'>
+                <span class='glyphicon glyphicon-user'></span>
                 <span>Username: </span>
-                <span><?php echo $_SESSION["username"]?></span>
-                <a href="login-2.php"><button class="btn-md">Log out</button></a>
+                <span>".$_SESSION['username']."</span>
+                <a href='logout.php'>Log out</button></a>
               </div>
             </div><!-- /.navbar-collapse -->
           </div><!-- /.container-fluid -->
         </nav>
-    </div>
-
+    </div>";
+?>
     <div class="row">
 
         <div class="col-md-7">
