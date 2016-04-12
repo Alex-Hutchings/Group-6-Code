@@ -1,3 +1,47 @@
+<?php session_start(); ?>
+<?php if(isset($_SESSION["username"])){
+header('location:module.php');
+} ?>
+<?php
+$user = 'x';
+$pass = 'x';
+$DBserver = "csmysql.cs.cf.ac.uk"; //mysql server
+$DBuser = "group6.2015"; //mysql username
+$DBpass = "bhF54FWzyq"; //mysql password
+$DBdatabase = "group6_2015"; //mysql database name
+$db = mysqli_connect($DBserver,$DBuser,$DBpass,$DBdatabase);
+if( $db === FALSE ){
+ header( "Location: error.html" ); //redirects to an error page in case of an error.
+ die();
+}
+
+
+else{
+$username = (isset($_POST["username"]) ? $_POST["username"] : null);
+$password= (isset($_POST["password"]) ? $_POST["password"] : null);
+
+$command = 'SELECT User_ID FROM USER WHERE User_ID ="'.$username.'"';
+$result = mysqli_query($db, $command);
+    while($row1 = mysqli_fetch_assoc($result)) {
+$user = $row1['User_ID'];
+ }
+
+$command = 'SELECT Pass FROM USER WHERE Pass ="'.$password.'"';
+$result = mysqli_query($db, $command);
+    while($row1 = mysqli_fetch_assoc($result)) {
+    $pass = $row1['Pass'];
+ }
+if($user == $username && $pass == $password){
+$_SESSION["username"] = $username;
+header('location:module.php');
+}
+else{
+if(null != $username){
+echo "Wrong username or password";
+}
+}
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -52,48 +96,7 @@
   			</div>
 		</div>
     </div>
-<?php
-$user = 'x';
-$pass = 'x';
-$DBserver = "csmysql.cs.cf.ac.uk"; //mysql server
-$DBuser = "group6.2015"; //mysql username
-$DBpass = "bhF54FWzyq"; //mysql password
-$DBdatabase = "group6_2015"; //mysql database name
-$db = mysqli_connect($DBserver,$DBuser,$DBpass,$DBdatabase);
-if( $db === FALSE ){
- header( "Location: error.html" ); //redirects to an error page in case of an error.
- die();
-}
 
-if(isset($_SESSION["username"])){
-header('location:module.php');
-}
-else{
-$username = (isset($_POST["username"]) ? $_POST["username"] : null);
-$password= (isset($_POST["password"]) ? $_POST["password"] : null);
-
-$command = 'SELECT User_ID FROM USER WHERE User_ID ="'.$username.'"';
-$result = mysqli_query($db, $command);
-    while($row1 = mysqli_fetch_assoc($result)) {
-$user = $row1['User_ID'];
- }
-
-$command = 'SELECT Pass FROM USER WHERE Pass ="'.$password.'"';
-$result = mysqli_query($db, $command);
-    while($row1 = mysqli_fetch_assoc($result)) {
-    $pass = $row1['Pass'];
- }
-if($user == $username && $pass == $password){
-$_SESSION["username"] = $username;
-header('location:module.php');
-}
-else{
-if(null != $username){
-echo "Wrong username or password";
-}
-}
-}
-?>
 
 
 
