@@ -4,6 +4,7 @@
 <?php
 session_start();
 echo "Welcome to the ".$_SESSION['moduleID']." Module Summary page. Feel free to add notes " .$_SESSION['username']."";
+$mid = $_SESSION['moduleID']
 ?>
 <head>
   <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script> AJAX-->
@@ -46,7 +47,10 @@ echo "Welcome to the ".$_SESSION['moduleID']." Module Summary page. Feel free to
   <script>
     function init() {
       //// Initialize Firebase.
-      var firepadRef = new Firebase('intellekt.firebaseio.com/firepads/shouldSaveNow');
+      var firePadID = '<?php echo $mid ?>';
+      var url = 'intellekt.firebaseio.com/firepads/';
+      var store = url.concat(firePadID);
+      var firepadRef = new Firebase(store);
       //// Create CodeMirror (with lineWrapping on).
       var codeMirror = CodeMirror(document.getElementById('firepad'), { lineWrapping: true });
       // Create a random ID to use as our user ID (we must give this to firepad and FirepadUserList).
