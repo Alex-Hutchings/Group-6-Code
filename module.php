@@ -97,7 +97,7 @@ echo"<div class='row'>
 	}
 }
 else{
-	$user = $_SESSION['username'];
+	//$user = $_SESSION['username'];
 	echo "<p>no user found.</p>";
 	header('location:login-2.php');
 	}
