@@ -1,6 +1,11 @@
 <?php session_start(); ?>
 
 <?php
+
+if(isset($_SESSION["username"])){
+header('location:module.php');
+}
+else{
 $user = 'x';
 $pass = 'x';
 $DBserver = "csmysql.cs.cf.ac.uk"; //mysql server
@@ -31,13 +36,12 @@ $result = mysqli_query($db, $command);
  }
 if($user == $username && $pass == $password){
 $_SESSION["username"] = $username;
+header('location:module.php');
 }
 else{
 if(null != $username){
 echo "Wrong username or password";
 }
-if(isset($_SESSION["username"])){
-header('location:module.php');
 }
 }
 }
