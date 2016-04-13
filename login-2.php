@@ -13,9 +13,7 @@ if( $db === FALSE ){
  header( "Location: error.html" ); //redirects to an error page in case of an error.
  die();
 }
-if(isset($_SESSION["username"])){
-header('location:module.php');
-}
+
 else{
 $username = (isset($_POST["username"]) ? $_POST["username"] : null);
 $password= (isset($_POST["password"]) ? $_POST["password"] : null);
@@ -33,11 +31,13 @@ $result = mysqli_query($db, $command);
  }
 if($user == $username && $pass == $password){
 $_SESSION["username"] = $username;
-header('location:module.php');
 }
 else{
 if(null != $username){
 echo "Wrong username or password";
+}
+if(isset($_SESSION["username"])){
+header('location:module.php');
 }
 }
 }
