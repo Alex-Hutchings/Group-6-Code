@@ -36,6 +36,9 @@
 session_start();
 $_SESSION['username'] = $_SESSION['username'];
 $_SESSION['moduleID'] = $_POST['moduleID'];
+//echos out the entire menu bar. Created in PHP so that session variables can be used throughout the menu
+//line 55 uses the sessions module ID to create the link to the relevant Module Summary page, taking users to the correct firepad.
+//Each button has their own image link that is used as an icon for the menu bar.
 echo "
     <div class='container-fluid'>
         <nav class='navbar navbar-default'>
@@ -70,10 +73,10 @@ echo "
 
         <div class="col-md-7">
             <div class="well">
-                <h3><?php echo $_SESSION["moduleID"]?></h3>
+                <h3><?php echo $_SESSION["moduleID"] //displays the module id as the title of the module?></h3>
                 <h4>Module Title</h4>
                 <?php
-                
+                //establishes database connection
                     $DBserver = "csmysql.cs.cf.ac.uk"; //mysql server
                     $DBuser = "group6.2015"; //mysql username
                     $DBpass = "bhF54FWzyq"; //mysql password
@@ -82,31 +85,32 @@ echo "
                     if( $db === FALSE ){
                       header( "Location: error.html" ); //redirects to an error page in case of an error.
                       die();
-                    }
+                    }//the sql query selects everything from the module table where the module ID is the same
+                    //as the module id located in the current session array
                     $query = 'SELECT * FROM MODULE WHERE Module_ID="'.$_SESSION["moduleID"].'"';
                     $result = mysqli_query($db, $query);
                     while ($row = mysqli_fetch_assoc($result)){
-                      $moduleTitle = $row['Module_TITLE'];
-                      $moduleDesc = $row['Module_DESCRIPTION'];
+                      $moduleTitle = $row['Module_TITLE']; //initialises the moduletitle variable to be the module title from the database
+                      $moduleDesc = $row['Module_DESCRIPTION'];//initialises the module description variable to the module description retrieved from the database
                 echo"
-                <p>".$moduleTitle."</p>
-                <br>";
+                <p>".$moduleTitle."</p> 
+                <br>";//prints out the module title 
                 echo"<h4> Module Description</h4>";
-                echo "<p>".$moduleDesc."</p>";
+                echo "<p>".$moduleDesc."</p>"; //prints out the module description
               }
               echo"<h4>Lecture Material</h4>";
-
+            //this query retrieves everything from the material table that has the same moduleID as the moduleID stored in the session array
               $query = 'SELECT * FROM MATERIAL WHERE Module_ID="'.$_SESSION["moduleID"].'"';
                     $result = mysqli_query($db, $query);
                     $i = 1;
                     while ($row = mysqli_fetch_assoc($result)){
-                      $materialTitle = $row['Material_TITLE'];
-                      $materialLink = $row['File'];
+                      $materialTitle = $row['Material_TITLE']; //initialises the materialTitle variable to be that of the material title retrieved from the database
+                      $materialLink = $row['File']; //initialises the materiallink variable to be that of the file filed in the database
                 	  echo"
                 	  <div class='modules-lect-button'>
                 	  <a href='' data-toggle='modal' data-target='#LectureModal'  data-backdrop='static' data-keyboard='false'>".$i.". ".$materialTitle."</a>
                 	  </div>";
-                	  $i++;
+                	  $i++; //increments i by 1 each time a new material is added to the result array
               }
                 ?>
 
@@ -121,13 +125,16 @@ echo "
                   <div class="panel-heading"><span data-toggle="modal" data-target="#FAQModal"  data-backdrop="static" data-keyboard="false">FAQ</span><span class="glyphicon glyphicon-open glypbuttons" data-toggle="modal" data-target="#FAQModal"  data-backdrop="static" data-keyboard="false"></span><span class="glyphicon glyphicon-menu-up glypbuttons FAQpanelhead"></span></div>
                   <div class="panel-body FAQpanelbody"  data-toggle="modal" data-target="#FAQModal"  data-backdrop="static" data-keyboard="false" style="display:none;">
                     <?php
+                    //deals with the FAQ section of the module
+                    //retrieves every FAQ stored in the module under the current moduleID stored in the session array.
                     $query = 'SELECT * FROM FAQ WHERE Module_ID= "'.$_SESSION["moduleID"].'"';
                     $result = mysqli_query($db, $query) or die(mysqli_error($db));
                     while ($row1 = mysqli_fetch_assoc($result)){
-                      $question = $row1['Question'];
-                      $answer = $row1['Answer'];
-                      echo '<p>Q:'.$question.'</p>
-                         <p>A:'.$answer.'</p>';
+                      $question = $row1['Question']; //sets the question variable to be the question field retrieved from the database
+                      $answer = $row1['Answer']; //sets the answer variable to be the answer field retrieved from the database
+                      echo '<p>Q:'.$question.'</p> 
+                         <p>A:'.$answer.'</p>'; //prints out the answer variable
+                        //prints out the question variable
                    }
                     ?>
                   </div>
@@ -136,11 +143,13 @@ echo "
                   <div class="panel-heading">Deadlines<span class="glyphicon glyphicon-menu-up glypbuttons Deadlinepanelhead"></span></div>
                   <div class="panel-body Deadlinepanelbody" style="display:none;">
                     <?php
+                    //retrieves the deadlines set for important material for each module
+                    //query retrieves everything from the module table that is the same as the moduleID stored in the session array
                     $query = 'SELECT * FROM MODULE WHERE Module_ID="'.$_SESSION["moduleID"].'"';
                     $result = mysqli_query($db, $query) or die(mysqli_error($db));
                     while ($row = mysqli_fetch_assoc($result)){
-                      $deadline = $row['Deadline'];
-                      echo "<p>Coursework Deadline<span class='date-deadline'>".$deadline."</span></p>";
+                      $deadline = $row['Deadline']; //sets the deadline variable to be the result of the query from the field Deadline
+                      echo "<p>Coursework Deadline<span class='date-deadline'>".$deadline."</span></p>"; //prints out the deadline that has been retrieved
                     }
                       ?>
                     </div>
@@ -160,15 +169,19 @@ echo "
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           </div>
         <?php
+        //deals with the lecture material
+        //query retrieves all the material files stored in the material table that have the same moduleID as the session stored moduleID
+        //displays the retrieved lecture material in an iframe
+        //each material retrieved also has their title displayed
         $materialQuery = 'SELECT * FROM MATERIAL WHERE Module_ID="'.$_SESSION["moduleID"].'"';
         $result = mysqli_query($db, $materialQuery);
         while ($row = mysqli_fetch_assoc($result)){
-        $materialTitle = $row['Material_TITLE'];
-        $file = $row['File'];
+        $materialTitle = $row['Material_TITLE']; //sets the material title from the result retrieved in the results array
+        $file = $row['File']; //sets the file variable from the result retrieved in the results array
         echo "<div class='modal-body'>
-       <h4 class='modal-title'> ".$materialTitle." </h4>
+       <h4 class='modal-title'> ".$materialTitle." </h4> 
           <div>
-              <iframe src=".$file." width='80%;' height='350px;'></iframe>
+              <iframe src=".$file." width='80%;' height='350px;'></iframe> 
           </div>";
         }
         
@@ -177,6 +190,9 @@ echo "
               <div class='panel panel-default lectureComments'>
                  <div class='panel-heading'>Comments</div>
                  <div class='panel-body'>";
+                 //query retrieves the comments stored in the material comments table that have the same moduleID as the session array
+                 //retrieves any comments from the database and stores them in the results array
+                 //displays these results with the comment and the userID of the comment 
                   $query = 'SELECT * FROM MATERIAL_COMMENTS WHERE Module_ID="'.$_SESSION["moduleID"].'"';
                   $result = mysqli_query($db, $query);
                   while ($row = mysqli_fetch_assoc($result)){
@@ -193,7 +209,7 @@ echo "
                     </div>";
                   }
                     ?>
-                     <form class="form-inline">
+                     <form class="form-inline"> <!--form that deals with making comments about the lecture material -->
                          <input type="text" class="form-control form-comments" placeholder="Enter comment">
                          <button type="submit" class="btn btn-sm">Send</button>
                      </form>
