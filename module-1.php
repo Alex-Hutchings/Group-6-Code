@@ -224,6 +224,7 @@ echo "
                   <div class="panel-body">
 
                       <div ng-app="">
+                          <!--This section allows students to write their own notes onto the lecture material -->
                         <label>Write your personal notes:</label>
                         <p><textarea type="text" class="textnotes" rows="3" ng-model="name"></textarea>
                         <button type="submit" class="btn btn-sm">Send</button>
