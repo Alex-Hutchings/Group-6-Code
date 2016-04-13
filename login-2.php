@@ -1,7 +1,5 @@
 <?php session_start(); ?>
-<?php if(isset($_SESSION["username"])){
-header('location:module.php');
-} ?>
+
 <?php
 $user = 'x';
 $pass = 'x';
@@ -10,12 +8,14 @@ $DBuser = "group6.2015"; //mysql username
 $DBpass = "bhF54FWzyq"; //mysql password
 $DBdatabase = "group6_2015"; //mysql database name
 $db = mysqli_connect($DBserver,$DBuser,$DBpass,$DBdatabase);
+
 if( $db === FALSE ){
  header( "Location: error.html" ); //redirects to an error page in case of an error.
  die();
 }
-
-
+if(isset($_SESSION["username"])){
+header('location:module.php');
+}
 else{
 $username = (isset($_POST["username"]) ? $_POST["username"] : null);
 $password= (isset($_POST["password"]) ? $_POST["password"] : null);
