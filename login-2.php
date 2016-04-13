@@ -3,6 +3,7 @@
 <?php
 if(isset($_SESSION["username"])){
 header('location:module.php');
+exit;
 }
 else{
 $user = 'x';
@@ -35,7 +36,8 @@ $result = mysqli_query($db, $command);
  }
 if($user == $username && $pass == $password){
 $_SESSION["username"] = $username;
-//header('location:module.php');
+header('location:module.php');
+exit;
 }
 else{
 if(null != $username){
