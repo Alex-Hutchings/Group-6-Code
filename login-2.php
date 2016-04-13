@@ -2,7 +2,7 @@
 
 <?php
 if(isset($_SESSION["username"])){
-header('location:module-1.php');
+header('location:module.php');
 }
 else{
 $user = 'x';
@@ -35,7 +35,7 @@ $result = mysqli_query($db, $command);
  }
 if($user == $username && $pass == $password){
 $_SESSION["username"] = $username;
-header('location:module-1.php');
+//header('location:module.php');
 }
 else{
 if(null != $username){
