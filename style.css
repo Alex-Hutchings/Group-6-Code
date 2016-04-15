@@ -66,3 +66,16 @@ iframe {
 .form-comments {
     width: 80% !important;
 }
+
+.question{
+    border: solid 1px;
+    font-size: 12px;
+}
+.questionForm{
+    font-weight: bolder;
+    font-size: 14px;
+    text-align: center;
+    width: 50%;
+    margin-left: 25%;
+    border: solid 2px;
+}

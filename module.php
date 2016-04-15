@@ -63,23 +63,20 @@ die();
 $update = null;
 //query retrieves the module id from student takes module where the student id is the same as the value stored for username in the post array.
 //this checks if a student takes a certain module, and only retrieves the modules that the student is enrolled on.
-$query = 'SELECT Module_ID FROM STUDENT_TAKES_MODULE WHERE Student_ID="'.$_SESSION["username"].'"';
+$query = 'SELECT * FROM STUDENT_TAKES_MODULE WHERE Student_ID="'.$_SESSION["username"].'"';
 $result = mysqli_query($db, $query) or die(mysqli_error($db));
 while ($row1 = mysqli_fetch_assoc($result)){
 $moduleID = $row1['Module_ID'];
-//$moduleTitle = $row1['Module_TITLE'];
+$moduleTitle = $row1['Module_TITLE'];
 echo"<div class='row'>
 <div class='container'>
     <div class='well modules-buttons'>
-    <a href='module-1.php?id=".$moduleID."><button>$moduleID</button></a>
-        <input hidden type='text' id='username' name='username' value= ".$_SESSION['username']."><a href='module-1.php?moduleID=".$row1['Module_ID']."'><button class='btn-lg'>".$row1['Module_ID']."</button></a><br>
+        <input hidden type='text' id='username' name='username' value= ".$_SESSION['username']."><a href='module-1.php?moduleID=".$row1['Module_ID']."'><button class='btn-lg'>".$row1['Module_ID'],": ", $moduleTitle."</button></a><br>
         <input hidden type='text' id='moduleID' name='moduleID' value= ".$moduleID.">
     </div>
 </div>
 </div>";
-}
-//$_SESSION['moduleID'] = $moduleID;
-    //}
+}//Sends hidden data to the next form so that the module ID can be collected and used as the page contents
 }
 
 ?>

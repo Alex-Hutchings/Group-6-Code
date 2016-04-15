@@ -35,7 +35,8 @@
 <?php
 $_SESSION['username'] = $_SESSION['username'];
 $moduleID = $_GET['moduleID'];
-// $_SESSION['moduleID'] = $_POST['moduleID'];
+$_SESSION['moduleID'] = $moduleID;
+
 echo "
     <div class='container-fluid'>
         <nav class='navbar navbar-default'>
@@ -50,7 +51,7 @@ echo "
             <div class='collapse navbar-collapse' id='bs-example-navbar-collapse-1'>
               <ul class='nav navbar-nav intelekt-nav-left'>
                 <li><a href='module.php'><img src='ModulesIcon.png' width='50%'></a></li>
-                <li><a href='Working_MSR_With_userlist.php'?moduleID=".$moduleID."><img src='MSRicon.png' width='50%'></a></li>             
+                <li><a href='Working_MSR_With_userlist.php'?moduleID=".$_SESSION['moduleID']."><img src='MSRicon.png' width='50%'></a></li>             
                 <li><a href='forumNew.php'><img src='forumsicon.png' width='50%'></a></li>
               </ul>
               </form>
@@ -70,7 +71,7 @@ echo "
 
         <div class="col-md-7">
             <div class="well">
-                <h3><?php echo $moduleID ?></h3>
+                <h3><?php echo $_SESSION['moduleID'] ?></h3>
                 <h4>Module Title</h4>
                 <?php
                 
@@ -83,7 +84,7 @@ echo "
                       header( "Location: error.html" ); //redirects to an error page in case of an error.
                       die();
                     }
-                    $query = 'SELECT * FROM MODULE WHERE Module_ID="'.$moduleID.'"';
+                    $query = 'SELECT * FROM MODULE WHERE Module_ID="'.$_SESSION['moduleID'].'"';
                     $result = mysqli_query($db, $query);
                     while ($row = mysqli_fetch_assoc($result)){
                       $moduleTitle = $row['Module_TITLE'];
@@ -96,7 +97,7 @@ echo "
               }
               echo"<h4>Lecture Material</h4>";
 
-              $query = 'SELECT * FROM MATERIAL WHERE Module_ID="'.$moduleID.'"';
+              $query = 'SELECT * FROM MATERIAL WHERE Module_ID="'.$_SESSION['moduleID'].'"';
                     $result = mysqli_query($db, $query);
                     $i = 1;
                     while ($row = mysqli_fetch_assoc($result)){
@@ -111,7 +112,8 @@ echo "
                 ?>
 
                 <h4>Other Material</h4>
-                <button class="btn-md">View</button>
+                <a href="moduleFeedbackForm.php"><button class="btn-md">Module Feedback</button></a>
+                   <input hidden type='text' id='moduleID' name='moduleID' value= <?php $moduleID ?>>
             </div>
         </div>
 
@@ -121,7 +123,7 @@ echo "
                   <div class="panel-heading"><span data-toggle="modal" data-target="#FAQModal"  data-backdrop="static" data-keyboard="false">FAQ</span><span class="glyphicon glyphicon-open glypbuttons" data-toggle="modal" data-target="#FAQModal"  data-backdrop="static" data-keyboard="false"></span><span class="glyphicon glyphicon-menu-up glypbuttons FAQpanelhead"></span></div>
                   <div class="panel-body FAQpanelbody"  data-toggle="modal" data-target="#FAQModal"  data-backdrop="static" data-keyboard="false" style="display:none;">
                     <?php
-                    $query = 'SELECT * FROM FAQ WHERE Module_ID= "'.$moduleID.'"';
+                    $query = 'SELECT * FROM FAQ WHERE Module_ID= "'.$_SESSION['moduleID'].'"';
                     $result = mysqli_query($db, $query) or die(mysqli_error($db));
                     while ($row1 = mysqli_fetch_assoc($result)){
                       $question = $row1['Question'];
@@ -136,7 +138,7 @@ echo "
                   <div class="panel-heading">Deadlines<span class="glyphicon glyphicon-menu-up glypbuttons Deadlinepanelhead"></span></div>
                   <div class="panel-body Deadlinepanelbody" style="display:none;">
                     <?php
-                    $query = 'SELECT * FROM MODULE WHERE Module_ID="'.$moduleID.'"';
+                    $query = 'SELECT * FROM MODULE WHERE Module_ID="'.$_SESSION['moduleID'].'"';
                     $result = mysqli_query($db, $query) or die(mysqli_error($db));
                     while ($row = mysqli_fetch_assoc($result)){
                       $deadline = $row['Deadline'];
@@ -160,7 +162,7 @@ echo "
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           </div>
         <?php
-        $materialQuery = 'SELECT * FROM MATERIAL WHERE Module_ID="'.$moduleID.'"';
+        $materialQuery = 'SELECT * FROM MATERIAL WHERE Module_ID="'.$_SESSION['moduleID'].'"';
         $result = mysqli_query($db, $materialQuery);
         while ($row = mysqli_fetch_assoc($result)){
         $materialTitle = $row['Material_TITLE'];
@@ -177,7 +179,7 @@ echo "
               <div class='panel panel-default lectureComments'>
                  <div class='panel-heading'>Comments</div>
                  <div class='panel-body'>";
-                  $query = 'SELECT * FROM MATERIAL_COMMENTS WHERE Module_ID="'.$moduleID.'"';
+                  $query = 'SELECT * FROM MATERIAL_COMMENTS WHERE Module_ID="'.$_SESSION['moduleID'].'"';
                   $result = mysqli_query($db, $query);
                   while ($row = mysqli_fetch_assoc($result)){
                   $comment = $row["Comment"];
