@@ -1,4 +1,7 @@
-<?php session_start() ?>
+<?php session_start();
+include_once("config.php");
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -34,7 +37,7 @@
 <body>
 <?php
 $_SESSION['username'] = $_SESSION['username'];
-$moduleID = $_GET['moduleID'];
+$moduleID = $_GET['id'];
 $_SESSION['moduleID'] = $moduleID;
 
 echo "
@@ -75,15 +78,7 @@ echo "
                 <h4>Module Title</h4>
                 <?php
                 
-                    $DBserver = "csmysql.cs.cf.ac.uk"; //mysql server
-                    $DBuser = "group6.2015"; //mysql username
-                    $DBpass = "bhF54FWzyq"; //mysql password
-                    $DBdatabase = "group6_2015"; //mysql database name
-                    $db = mysqli_connect($DBserver,$DBuser,$DBpass,$DBdatabase);
-                    if( $db === FALSE ){
-                      header( "Location: error.html" ); //redirects to an error page in case of an error.
-                      die();
-                    }
+                    
                     $query = 'SELECT * FROM MODULE WHERE Module_ID="'.$_SESSION['moduleID'].'"';
                     $result = mysqli_query($db, $query);
                     while ($row = mysqli_fetch_assoc($result)){
@@ -167,6 +162,7 @@ echo "
         while ($row = mysqli_fetch_assoc($result)){
         $materialTitle = $row['Material_TITLE'];
         $file = $row['File'];
+        $_SESSION['materialID'] = $row['Material_ID'];
         echo "<div class='modal-body'>
        <h4 class='modal-title'> ".$materialTitle." </h4>
           <div>
@@ -195,10 +191,12 @@ echo "
                     </div>";
                   }
                     ?>
-                     <form class="form-inline">
-                         <input type="text" class="form-control form-comments" placeholder="Enter comment">
-                         <button type="submit" class="btn btn-sm">Send</button>
+                    <div id="formCommentsBox">
+                     <form id="formComments" action="comments.php" action="POST">
+                         <input type="text" id="comment" name="comment"  placeholder="Enter comment">
+                         <button type="submit" >Make Comment</button>
                      </form>
+                   </div>
 
                 </div>
               </div>

@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-<?php session_start();?>
+<?php session_start();
+include_once("config.php"); //calls the config file which connects to the database
+?>
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -40,6 +42,9 @@ if(isset($_SESSION['username']))
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class='collapse navbar-collapse' id='bs-example-navbar-collapse-1'>
+              <ul class='nav navbar-nav intelekt-nav-left'>
+                <li><a href='module.php'><img src='ModulesIcon.png' width='50%'></a></li>
+                </ul>
               <div class='nav navbar-nav navbar-right'>
                 <span class='glyphicon glyphicon-user'></span>
                 <span>Username: </span>
@@ -50,29 +55,20 @@ if(isset($_SESSION['username']))
           </div><!-- /.container-fluid -->
         </nav>
     </div>";
-//establishes the connection to the database
-$DBserver = "csmysql.cs.cf.ac.uk"; //mysql server
-$DBuser = "group6.2015"; //mysql username
-$DBpass = "bhF54FWzyq"; //mysql password
-$DBdatabase = "group6_2015"; //mysql database name
-    $db = mysqli_connect($DBserver,$DBuser,$DBpass,$DBdatabase);
-if( $db === FALSE ){
-header( "Location: error.html" ); //redirects to an error page in case of an error.
-die();
-}
+
 $update = null;
 //query retrieves the module id from student takes module where the student id is the same as the value stored for username in the post array.
 //this checks if a student takes a certain module, and only retrieves the modules that the student is enrolled on.
 $query = 'SELECT * FROM STUDENT_TAKES_MODULE WHERE Student_ID="'.$_SESSION["username"].'"';
 $result = mysqli_query($db, $query) or die(mysqli_error($db));
 while ($row1 = mysqli_fetch_assoc($result)){
-$moduleID = $row1['Module_ID'];
+$id = $row1['Module_ID'];
 $moduleTitle = $row1['Module_TITLE'];
 echo"<div class='row'>
 <div class='container'>
     <div class='well modules-buttons'>
-        <input hidden type='text' id='username' name='username' value= ".$_SESSION['username']."><a href='module-1.php?moduleID=".$row1['Module_ID']."'><button class='btn-lg'>".$row1['Module_ID'],": ", $moduleTitle."</button></a><br>
-        <input hidden type='text' id='moduleID' name='moduleID' value= ".$moduleID.">
+        <input hidden type='text' id='username' name='username' value= ".$_SESSION['username']."><a href='module-1.php?id=".$row1['Module_ID']."'><button class='btn-lg'>".$row1['Module_ID'],": ", $moduleTitle."</button></a><br>
+        <input hidden type='text' id='moduleID' name='moduleID' value= ".$id.">
     </div>
 </div>
 </div>";

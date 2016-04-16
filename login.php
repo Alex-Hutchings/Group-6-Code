@@ -6,11 +6,7 @@ session_start();
 <?php
 $user = 'x';
 $pass = 'x';
-$DBserver = "csmysql.cs.cf.ac.uk"; //mysql server
-$DBuser = "group6.2015"; //mysql username
-$DBpass = "bhF54FWzyq"; //mysql password
-$DBdatabase = "group6_2015"; //mysql database name
-$db = mysqli_connect($DBserver,$DBuser,$DBpass,$DBdatabase);
+include_once("config.php");
 if( $db === FALSE ){
  header( "Location: error.html" ); //redirects to an error page in case of an error.
  die();
