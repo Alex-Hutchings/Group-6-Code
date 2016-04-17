@@ -4,7 +4,9 @@
 <?php
 session_start();
 echo "Welcome to the ".$_SESSION['moduleID']." Module Summary page. Feel free to add notes " .$_SESSION['username']."";
-$mid = $_SESSION['moduleID']
+$mid = $_SESSION['moduleID'];
+$sid = $_SESSION['username'];
+echo "<a href='login.php'><button class='btn-md'>Log out</button></a>";
 ?>
 <head>
   <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script> AJAX-->
@@ -21,32 +23,27 @@ $mid = $_SESSION['moduleID']
   <script src="https://cdn.firebase.com/libs/firepad/1.3.0/firepad.min.js"></script>
 
   <!-- Include example userlist script / CSS.
-       Can be downloaded from: https://github.com/firebase/firepad/tree/master/examples/ -->
+  Can be downloaded from: https://github.com/firebase/firepad/tree/master/examples/ -->
   <script src="firepad-userlist.js"></script>
-  <link rel="stylesheet" href="firepad-userlist.css" />
-
-  <style>
-    html { height: 100%; }
-    body { margin: 0; height: 100%; }
-    /* Height / width / positioning can be customized for your use case.
-       For demo purposes, we make the user list 175px and firepad fill the rest of the page. */
-    #userlist {
-      position: absolute; left: 0; top: 0; bottom: 0; height: auto;
-      width: 175px;
-    }
-    #firepad {
-      position: absolute; left: 175px; top: 0; bottom: 0; right: 0; height: auto;
-    }
-  </style>
+  
+  <link rel="stylesheet" type="text/css" href="styleUpdate.css">
 </head>
 
 <body>
+  <!-- Include example userlist script / CSS-->
+  <script src="firepad-userlist.js"></script>
+  <link rel="stylesheet" href="firepad-userlist.css" />
+  <div id = "firepad-container">
   <div id="userlist"></div>
   <div id="firepad"></div>
+  </div>
+
+<div class="container-fluid" align="center"> 
 
   <script>
     function init() {
       //// Initialize Firebase.
+      var firepadUserID = '<?php echo $sid ?>';
       var firePadID = '<?php echo $mid ?>';
       var url = 'intellekt.firebaseio.com/firepads/';
       var store = url.concat(firePadID);
@@ -64,7 +61,7 @@ $mid = $_SESSION['moduleID']
       //// Initialize contents.
       firepad.on('ready', function() {
         if (firepad.isHistoryEmpty()) {
-          firepad.setText('Check out the user list to the left!');
+          firepad.setText('Welcome to the module summary page!');
         }
       });
     }
@@ -86,5 +83,4 @@ $mid = $_SESSION['moduleID']
   </script>
 
 </body>
-<a href='login-2.php'><button class='btn-md'>Log out</button></a>
 </html>
