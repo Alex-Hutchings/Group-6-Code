@@ -45,6 +45,7 @@
         </nav>
     </div>
 <?php
+include_once("config.php");
 date_default_timezone_set('UTC');
 $time = date('Y');
 $moduleID = $_SESSION['moduleID'];
@@ -73,14 +74,6 @@ $additionalComments = $_POST['additionalComments'];
 
 if($question1 !=null && $question2 !=null && $question3 !=null && $question4 !=null && $question5 !=null){
 	echo "Thank you for your feedback.";}
-	$server = "csmysql.cs.cf.ac.uk";
-	$user = "group6.2015"; 
-	$password = "bhF54FWzyq"; 
-	$database = "group6_2015";
-	$db = mysqli_connect($server,$user,$password,$database); 
-	if( $db === FALSE ){
-	header( "Location: error.html" ); die();
-	}
 
 	// sql command to update a record ModuleID
 	$sql = "INSERT INTO MODULE_FEEDBACK(Module_ID, Q1, Q2, Q3, Q4, Q5, Additional_COMMENTS, Module_Year) 

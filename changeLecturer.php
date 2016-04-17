@@ -1,25 +1,13 @@
 <?php session_start() ?>
 <?php
-$server = "csmysql.cs.cf.ac.uk";
-$user = "group6.2015"; $password = "bhF54FWzyq"; $database = "group6_2015";
-if(isset($_GET['id'])){
-$ID = intval($_GET['id']);
-$command = "SELECT * FROM LECTURER WHERE Lecturer_ID = $ID";
-}
-
-$db = mysqli_connect($server,$user,$password,$database); 
-if( $db === FALSE ){
-header( "Location: error.html" ); die();
-}
+include_once("config.php");
 $result = mysqli_query($db, $command); 
 while($row = mysqli_fetch_assoc($result)) {
-
 $LID = $row['Lecturer_ID'];
 $name = $row['Lecturer_NAME']; 
 $office = $row['Office']; 
 $_SESSION['id'] = $row['Lecturer_ID'];
 }
-
 $result = mysqli_query($db, $command); 
 ?>
 <div style="margin:1%; padding:1%; background-color:white;" >

@@ -5,15 +5,7 @@
 </head>
 <body>
 <?php
-$DBserver = "csmysql.cs.cf.ac.uk"; //mysql server
-$DBuser = "group6.2015"; //mysql username
-$DBpass = "bhF54FWzyq"; //mysql password
-$DBdatabase = "group6_2015"; //mysql database name
-$db = mysqli_connect($DBserver,$DBuser,$DBpass,$DBdatabase);
-if( $db === FALSE ){
- header( "Location: error.html" ); //redirects to an error page in case of an error.
- die();
-}
+include_once("config.php");
 
 $command = "SELECT * FROM STUDENT";
 $result = mysqli_query($db, $command);
