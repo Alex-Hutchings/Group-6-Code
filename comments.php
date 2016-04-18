@@ -2,11 +2,12 @@
 <?php
 session_start();
 include_once("config.php");
-$comment = "test comment";
+$comment = $_POST['comment'];
+$id = $_SESSION['moduleID'];
+// echo $comment;
 
-//$comment = $_POST['comment'];
-$sql = "INSERT INTO MATERIAL_COMMENTS(Comment_ID, User_ID, Module_ID, Material_ID, Comment) 
-	VALUES ('".$moduleID."', '".$_SESSION['username']."','".$_SESSION['moduleID']."','".$_SESSION['materialID']."','".$Comment. "')";
+$sql = "INSERT INTO MATERIAL_COMMENTS(User_ID, Module_ID, Material_ID, Comment) 
+	VALUES ('".$_SESSION['username']."','".$_SESSION['moduleID']."','".$_SESSION['materialID']."','".$comment. "')";
 
 
 	if ($db->query($sql) === TRUE) {
@@ -14,7 +15,7 @@ $sql = "INSERT INTO MATERIAL_COMMENTS(Comment_ID, User_ID, Module_ID, Material_I
 	} else {
 	echo "Error updating record: " . $db->error;
 	} $db->close();
-// header("location:module-1.php");
+	header("location:module-1.php?id=".$_SESSION["moduleID"]);
 
 ?>
 

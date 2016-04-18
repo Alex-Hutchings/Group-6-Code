@@ -3,11 +3,18 @@
 <html>
 <?php
 session_start();
-echo "Welcome to the ".$_SESSION['moduleID']." Module Summary page. Feel free to add notes " .$_SESSION['username']."";
 $mid = $_SESSION['moduleID'];
+echo $mid;
 $sid = $_SESSION['username'];
-echo "<a href='login.php'><button class='btn-md'>Log out</button></a>";
+echo "<div class='container-fluid'>
+        <nav class='navbar navbar-default'>
+          <div class='container-fluid'>
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class='navbar-header'>
+                <img src='logo.png'>
+            </div>";
 ?>
+
 <head>
   <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script> AJAX-->
   <meta charset="utf-8" />
@@ -59,7 +66,7 @@ echo "<a href='login.php'><button class='btn-md'>Log out</button></a>";
       var firepadUserList = FirepadUserList.fromDiv(firepadRef.child('users'),
           document.getElementById('userlist'), userId);
       //// Initialize contents.
-      firepad.on('ready', function() {
+        firepad.on('ready', function() {
         if (firepad.isHistoryEmpty()) {
           firepad.setText('Welcome to the module summary page!');
         }

@@ -30,7 +30,14 @@
                 <img src='logo.png'>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
+            <form action='' method='POST'>
             <div class='collapse navbar-collapse' id='bs-example-navbar-collapse-1'>
+              <ul class='nav navbar-nav intelekt-nav-left'>
+                <li><a href='module.php'><img src='ModulesIcon.png' width='50%'></a></li>
+                <li><a href='Working_MSR_With_userlist.php'?moduleID=".$_SESSION['moduleID']."><img src='MSRicon.png' width='50%'></a></li>             
+                <li><a href='forumNew.php'><img src='forumsicon.png' width='50%'></a></li>
+              </ul>
+              </form>
               <div class='nav navbar-nav navbar-right'>
                 <span class='glyphicon glyphicon-user'></span>
                 <span>Username: </span>
@@ -45,7 +52,7 @@
 <!--Form for dealing the feedback -->
     <div>
 
-    	<form class="questionForm" action = "moduleFeedback.php" method="POST">
+    	<form class="questionForm" action = "moduleFeedback.php" method="POST" onSubmit="alerts()">
              <h2><?php echo $_SESSION['moduleID']?>: Module Feedback</h2>
     	<div class="question">
     		Question1: How would you rate the lecturers for this module?<br>
@@ -98,5 +105,7 @@
     	</div>
     	</form>
     </div>
+
+<script src="alerts.js" type="text/javascript"></script>
 </body>
 </html>

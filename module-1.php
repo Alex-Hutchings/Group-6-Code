@@ -37,16 +37,21 @@ include_once("config.php");
 <body>
 <?php
 $_SESSION['username'] = $_SESSION['username'];
-$moduleID = $_GET['id'];
-$_SESSION['moduleID'] = $moduleID;
+if(!isset($moduleID)){
+  $moduleID = $_GET['id'];
+}
+else{
+  $_SESSION['moduleID'] = $moduleID;
+}
 
+$_SESSION['moduleID'] = $moduleID;
 echo "
     <div class='container-fluid'>
         <nav class='navbar navbar-default'>
           <div class='container-fluid'>
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class='navbar-header'>
-                <a href><img src='logo.png'></a>
+                <img src='logo.png'>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -192,9 +197,9 @@ echo "
                   }
                     ?>
                     <div id="formCommentsBox">
-                     <form id="formComments" action="comments.php" action="POST">
-                         <input type="text" id="comment" name="comment"  placeholder="Enter comment">
-                         <button type="submit" >Make Comment</button>
+                     <form id="formComments" action="comments.php" method="post" onSubmit="commentalert()">
+                         <input type="text" name="comment" placeholder="Enter comment">
+                         <button type="submit">Make Comment</button>
                      </form>
                    </div>
 
@@ -248,8 +253,11 @@ echo "
 
     </div>
   </div>
-
-
+  <script type="text/javascript">
+function commentalert(){
+  alert("Your comment has been posted!");
+}
+</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
