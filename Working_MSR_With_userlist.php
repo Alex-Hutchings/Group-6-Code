@@ -33,7 +33,7 @@ echo "<div class='container-fluid'>
   Can be downloaded from: https://github.com/firebase/firepad/tree/master/examples/ -->
   <script src="firepad-userlist.js"></script>
   
-  <link rel="stylesheet" type="text/css" href="styleUpdate.css">
+  <link rel="stylesheet" type="text/css" href="styleupdate.css">
 </head>
 
 <body>
