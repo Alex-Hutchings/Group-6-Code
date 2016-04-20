@@ -60,12 +60,12 @@ $update = null;
 //query retrieves the module id from student takes module where the student id is the same as the value stored for username in the post array.
 //this checks if a student takes a certain module, and only retrieves the modules that the student is enrolled on.
 
-if ($_SESSION['usertype']== "stu") {
-    $query = 'SELECT * FROM STUDENT_TAKES_MODULE WHERE Student_ID="'.$_SESSION["username"].'"';
-    $page = 'module-1.php';
-}else{
+if($_SESSION['lecturer'] == true) {
     $query = 'SELECT * FROM LECTURERS_IN_MODULE WHERE Lecturer_ID="'.$_SESSION['username'].'"';
     $page = 'modulesLecturer.php';
+}else{
+    $query = 'SELECT * FROM STUDENT_TAKES_MODULE WHERE Student_ID="'.$_SESSION["username"].'"';
+    $page = 'module-1.php';
 }
 
 $result = mysqli_query($db, $query) or die(mysqli_error($db));
