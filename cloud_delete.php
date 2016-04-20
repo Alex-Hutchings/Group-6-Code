@@ -3,21 +3,22 @@
 
 <?php
 
-//session_start();
-//include_once("config.php");
+ession_start();
+include_once("config.php");
 
 require_once __DIR__ . '/vendor/autoload.php';
 
 //session
-/**
+
 session_start()
 $module = $_SESSION['moduleID']."/";
 $uploader = $_SESSION["username"];
-*/
+$title = $_SESSION["title"];
 
+
+// values for testing. Delete for functionality.
 $module = "CM1000"."/";
 $uploader = 1445555;
-
 $title = "Title";
 
 /**
@@ -47,7 +48,6 @@ $storage->objects->delete("intellekt_file_storage", $file_name);
 
 
 //database
-/**
 if( $db === FALSE ){
 header( "Location: error.html" ); die();
 }
@@ -63,7 +63,7 @@ $update = $_SESSION['id'];
 }
 // sql command to update a record
 
-$link = "https://storage.googleapis.com/intellekt_file_storage/'".$module.$title."'"; //Change to sessions
+$link = "https://storage.googleapis.com/intellekt_file_storage/'".$module.$title."'";
 
 $id = $_GET['id'];
 $sql = "DELETE FROM MATERIAL WHERE File = $link" ;
@@ -73,7 +73,7 @@ $message = "Record added successfully"; echo $message;
 } else {
 echo "Error updating record: " . $db->error;
 } $db->close();
-*/
+
 ?>
 
 </body>

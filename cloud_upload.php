@@ -3,47 +3,45 @@
 
 <?php
 
-//session_start();
-//include_once("config.php");
+session_start();
+include_once("config.php");
 
 require_once __DIR__ . '/vendor/autoload.php';
 
 //session
-/**
-session_start()
 $module = $_SESSION['moduleID']."/";
 $uploader = $_SESSION["username"];
-*/
 
+//testing values. Delete when needed.
 $module = "CM1000"."/";
 $uploader = 1445555;
 
 if(isset($_POST["pdf"])){
 $file = $_POST["pdf"];
 }else{
-	$file = "png.png"; //javascript 
-}
+	$file = "png.png"; // Test value.
 
 if(isset($_POST['title'])){
 $title = $_POST['title'];
 }else{
-	$title = "Title";//javascript 
+	$title = "Title"; // Test value. 
 }
 
 if(isset($_POST['type'])){
 $type = $_POST['type'];
+}else{
+	$type = 'oth'; // Test value.
 }
 
-$type = 'oth';
+
 if ($type == 'pdf') {
 	$mime = 'application/pdf';
 }
 
-
 if ($type == 'oth' &&(mime_content_type($file) == 'application/zip' || mime_content_type($file) == 'image/jpg'|| mime_content_type($file) == 'image/png') ) {
  	$mime = mime_content_type($file);
  } else{
-
+	//display error "wrong filetype"
  }
 	
 
@@ -69,7 +67,6 @@ $client->addScope(Google_Service_Storage::DEVSTORAGE_FULL_CONTROL);
 
 if($client->isAccessTokenExpired()){
 	$client->setAuthConfig('Intellekt-12aebbba5d44.json');
-	// Cache the access token however you choose, getting the access token with $client->getAccessToken()
 }
 
 /**
@@ -85,7 +82,6 @@ $storage->objects->insert("intellekt_file_storage",$obj, $postbody);
 
 
 //database
-/**
 if( $db === FALSE ){
 header( "Location: error.html" ); die();
 }
