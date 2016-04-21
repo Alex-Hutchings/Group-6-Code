@@ -24,7 +24,6 @@ include_once("config.php");
                 $(".lecturesPreview").hide();
             });
         });
-
         $(document).ready(function(){
             $(".hideUpload").click(function(){
                 $(".toUpload").hide();
@@ -45,7 +44,6 @@ if(!isset($moduleID)){
 else{
   $_SESSION['moduleID'] = $moduleID;
 }
-
 $_SESSION['moduleID'] = $moduleID;
 echo "
     <div class='container-fluid'>
@@ -55,7 +53,6 @@ echo "
             <div class='navbar-header'>
                 <img src='logo.png'>
             </div>
-
             <!-- Collect the nav links, forms, and other content for toggling -->
             <form action='' method='POST'>
             <div class='collapse navbar-collapse' id='bs-example-navbar-collapse-1'>
@@ -101,7 +98,6 @@ echo "
  
               }
               echo"<h4>Lecture Material</h4>";
-
               $query = 'SELECT * FROM MATERIAL WHERE Module_ID="'.$_SESSION['moduleID'].'"';
                     $result = mysqli_query($db, $query);
                     $i = 1;
@@ -119,7 +115,7 @@ echo "
                 ?>
 
                 <h4>Other Material</h4>
-                <a href="moduleFeedbackForm.php"><button class="btn-md">Module Feedback</button></a>
+                <a href="lecturerFeedbackForm.php"><button class="btn-md">Module Feedback</button></a>
                    <input hidden type='text' id='moduleID' name='moduleID' value= <?php $moduleID ?>>
             </div>
         </div>

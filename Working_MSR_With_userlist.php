@@ -4,18 +4,46 @@
 <?php
 session_start();
 $mid = $_SESSION['moduleID'];
-echo $mid;
 $sid = $_SESSION['username'];
-echo "<div class='container-fluid'>
+if($_SESSION['lecturer'] == true) {
+    $query = 'SELECT * FROM LECTURERS_IN_MODULE WHERE Lecturer_ID="'.$_SESSION['username'].'"';
+    $page = 'module.php';
+}else{
+    $query = 'SELECT * FROM STUDENT_TAKES_MODULE WHERE Student_ID="'.$_SESSION["username"].'"';
+    $page = 'module.php';
+}
+echo "
+    <div class='container-fluid'>
         <nav class='navbar navbar-default'>
           <div class='container-fluid'>
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class='navbar-header'>
                 <img src='logo.png'>
-            </div>";
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <form action='' method='POST'>
+            <div class='collapse navbar-collapse' id='bs-example-navbar-collapse-1'>
+              <ul class='nav navbar-nav intelekt-nav-left'>
+                <li><a href=".$page."><img src='ModulesIcon.png' width='5%'></a></li>
+                <li><a href='forumNew.php'><img src='forumsicon.png' width='5%'></a></li>
+              </ul>
+              </form>
+              
+              <div class='nav navbar-nav navbar-right'>
+                <span class='glyphicon glyphicon-user'></span>
+                <span>Username: </span>
+                <span>".$_SESSION['username']."</span>
+                <a href='logout.php'>Log out</button></a>
+              </div>
+            </div><!-- /.navbar-collapse -->
+          </div><!-- /.container-fluid -->
+        </nav>
+    </div>";
 ?>
 
 <head>
+  <link rel="stylesheet" type="text/css" href="styleUpdate.css">
   <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script> AJAX-->
   <meta charset="utf-8" />
   <!-- Firebase -->
@@ -33,7 +61,7 @@ echo "<div class='container-fluid'>
   Can be downloaded from: https://github.com/firebase/firepad/tree/master/examples/ -->
   <script src="firepad-userlist.js"></script>
   
-  <link rel="stylesheet" type="text/css" href="styleupdate.css">
+  
 </head>
 
 <body>

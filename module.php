@@ -27,10 +27,9 @@ include_once("config.php"); //calls the config file which connects to the databa
 //checks to see if the username has been set
 //if username is set then the user variable is set to the be posted username variable from the login form
 if(isset($_SESSION['username']))
-{   $user = $_SESSION['username']; //sets the user variable to be the value stored in the post array
-    // if($user == $_POST['username'])
-    // {
-    //     $_SESSION['username'] = $user;
+{
+    //$userType = $_SESSION['lecturer'];
+    $user = $_SESSION['username']; //sets the user variable to be the value stored in the post array
     //prints out the entire navigation bar.
         echo "
             <div class='container-fluid'>
@@ -55,19 +54,17 @@ if(isset($_SESSION['username']))
           </div><!-- /.container-fluid -->
         </nav>
     </div>";
-
-$update = null;
 //query retrieves the module id from student takes module where the student id is the same as the value stored for username in the post array.
 //this checks if a student takes a certain module, and only retrieves the modules that the student is enrolled on.
-
-if($_SESSION['lecturer'] == true) {
-    $query = 'SELECT * FROM LECTURERS_IN_MODULE WHERE Lecturer_ID="'.$_SESSION['username'].'"';
-    $page = 'modulesLecturer.php';
-}else{
+if($_SESSION['lecturer'] == false) {
     $query = 'SELECT * FROM STUDENT_TAKES_MODULE WHERE Student_ID="'.$_SESSION["username"].'"';
     $page = 'module-1.php';
+    
 }
-
+else{
+    $query = 'SELECT * FROM LECTURERS_IN_MODULE WHERE Lecturer_ID="'.$_SESSION['username'].'"';
+    $page = 'modulesLecturer.php';
+}
 $result = mysqli_query($db, $query) or die(mysqli_error($db));
 while ($row1 = mysqli_fetch_assoc($result)){
 $id = $row1['Module_ID'];
@@ -82,7 +79,6 @@ echo"<div class='row'>
 </div>";
 }//Sends hidden data to the next form so that the module ID can be collected and used as the page contents
 }
-
 ?>
 </body>
 </div>

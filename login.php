@@ -24,8 +24,14 @@ $result = mysqli_query($db, $command);
 $user = $row1['User_ID'];
 $pass = $row1['Pass'];
 $type = $row1['User_Type'];
+// $_SESSION["lecturer"] = $type;
  }
 
+// $command = 'SELECT Pass FROM USER WHERE Pass ="'.$password.'"';
+// $result = mysqli_query($db, $command);
+//     while($row1 = mysqli_fetch_assoc($result)) {
+//     $pass = $row1['Pass'];
+//  }
 if($user == $username && $pass == $password && $type == 'stu'){
 $_SESSION["lecturer"] = false;
 $_SESSION["username"] = $username;
