@@ -17,18 +17,22 @@ else{
 $username = (isset($_POST["username"]) ? $_POST["username"] : null);
 $password= (isset($_POST["password"]) ? $_POST["password"] : null);
 
-$command = 'SELECT User_ID FROM USER WHERE User_ID ="'.$username.'"';
+
+$command = 'SELECT * FROM USER WHERE User_ID ="'.$username.'"';
 $result = mysqli_query($db, $command);
     while($row1 = mysqli_fetch_assoc($result)) {
 $user = $row1['User_ID'];
+$pass = $row1['Pass'];
+$type = $row1['User_Type'];
  }
 
-$command = 'SELECT Pass FROM USER WHERE Pass ="'.$password.'"';
-$result = mysqli_query($db, $command);
-    while($row1 = mysqli_fetch_assoc($result)) {
-    $pass = $row1['Pass'];
- }
-if($user == $username && $pass == $password){
+if($user == $username && $pass == $password && $type == 'stu'){
+$_SESSION["lecturer"] = false;
+$_SESSION["username"] = $username;
+header('location:module.php');
+}
+if($user == $username && $pass == $password && $type == 'lec'){
+$_SESSION["lecturer"] = true;
 $_SESSION["username"] = $username;
 header('location:module.php');
 }
