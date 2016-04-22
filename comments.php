@@ -7,7 +7,7 @@ $id = $_SESSION['moduleID'];
 // echo $comment;
 
 $sql = "INSERT INTO MATERIAL_COMMENTS(User_ID, Module_ID, Material_ID, Comment) 
-	VALUES ('".$_SESSION['username']."','".$_SESSION['moduleID']."','".$_SESSION['materialID']."','".$comment. "')";
+	VALUES ('".$_SESSION['username']."','".$_SESSION['moduleID']."','".$_SESSION['material']."','".$comment. "')";
 
 
 	if ($db->query($sql) === TRUE) {
@@ -15,7 +15,7 @@ $sql = "INSERT INTO MATERIAL_COMMENTS(User_ID, Module_ID, Material_ID, Comment)
 	} else {
 	echo "Error updating record: " . $db->error;
 	} $db->close();
-	header("location:module-1.php?id=".$_SESSION["moduleID"]);
+	header("location:material.php?id=".$_SESSION["moduleID"]);
 
 ?>
 

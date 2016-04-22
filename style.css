@@ -58,7 +58,9 @@ iframe {
 .date-deadline {
     float: right;
 }
-
+.LecturerPanel {
+    float: right;
+}
 .textnotes {
     width: 100%;
 }
