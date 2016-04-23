@@ -6,14 +6,7 @@
 <body>
 <?php
 //establishing connection to the database
-$server = "csmysql.cs.cf.ac.uk"; //server connection
-$user = "group6.2015";  //the username of user to access the database
-$password = "bhF54FWzyq";  //password of the user to access the database
-$database = "group6_2015"; //the specific database itself
-$db = mysqli_connect($server,$user,$password,$database);  //connection to the database using the variables created above
-if( $db === FALSE ){
-header( "Location: error.html" ); die();
-}
+include_once("menu.php");
 $update = null;
 
 if ($db->connect_error) {
