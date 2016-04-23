@@ -15,7 +15,7 @@ $sql = "INSERT INTO MATERIAL_COMMENTS(User_ID, Module_ID, Material_ID, Comment)
 	} else {
 	echo "Error updating record: " . $db->error;
 	} $db->close();
-	header("location:material.php?id=".$_SESSION["moduleID"]);
+	header("location:material.php?id=".$_SESSION["material"]);
 
 ?>
 

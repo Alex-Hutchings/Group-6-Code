@@ -1,5 +1,6 @@
 <?php session_start();
 include_once("config.php");
+include_once("menu.php");
 ?>
 
 <!DOCTYPE html>
@@ -24,6 +25,13 @@ include_once("config.php");
             $(this).toggleClass('glyphicon-menu-up').toggleClass('glyphicon-menu-down');
         });
     });
+
+    $(document).ready(function(){
+        $(".LecturerPanelhead").click(function(){
+            $(".Lecturerpanelbody").toggle();
+            $(this).toggleClass('glyphicon-menu-up').toggleClass('glyphicon-menu-down');
+        });
+    });
     </script>
 
     <title>Module</title>
@@ -45,35 +53,7 @@ else{
 }
 
 $_SESSION['moduleID'] = $moduleID;
-echo "
-    <div class='container-fluid'>
-        <nav class='navbar navbar-default'>
-          <div class='container-fluid'>
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class='navbar-header'>
-                <img src='logo.png'>
-            </div>
 
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <form action='' method='POST'>
-            <div class='collapse navbar-collapse' id='bs-example-navbar-collapse-1'>
-              <ul class='nav navbar-nav intelekt-nav-left'>
-                <li><a href='module.php'><img src='ModulesIcon.png' width='50%'></a></li>
-                <li><a href='Working_MSR_With_userlist.php'?moduleID=".$_SESSION['moduleID']."><img src='MSRicon.png' width='50%'></a></li>             
-                <li><a href='forumNew.php'><img src='forumsicon.png' width='50%'></a></li>
-              </ul>
-              </form>
-              
-              <div class='nav navbar-nav navbar-right'>
-                <span class='glyphicon glyphicon-user'></span>
-                <span>Username: </span>
-                <span>".$_SESSION['username']."</span>
-                <a href='logout.php'>Log out</button></a>
-              </div>
-            </div><!-- /.navbar-collapse -->
-          </div><!-- /.container-fluid -->
-        </nav>
-    </div>";
 ?>
     <div class="row">
 
@@ -96,18 +76,19 @@ echo "
                 echo "<p>".$moduleDesc."</p>";
               }
               echo"<h4>Lecture Material</h4>";
-
               $query = 'SELECT * FROM MATERIAL WHERE Module_ID="'.$_SESSION['moduleID'].'"';
                     $result = mysqli_query($db, $query);
                     $i = 1;
                     while ($row = mysqli_fetch_assoc($result)){
                       $materialTitle = $row['Material_TITLE'];
                       $materialLink = $row['File'];
+                      $Material_ID = $row['Material_ID'];
                     echo"
                     <div class='modules-lect-button'>
-                    <a href='' data-toggle='modal' data-target='#LectureModal'  data-backdrop='static' data-keyboard='false'>".$i.". ".$materialTitle."</a>
+                    <a href='material.php?id=".$Material_ID."'>".$i.". ".$materialTitle."</a>
                     </div>";
                     $i++;
+                    $_SESSION['material'] = $Material_ID;
               }
                 ?>
 
@@ -148,9 +129,33 @@ echo "
                     </div>
                 </div>
             </div>
-        </div>
 
-    </div>
+
+    <div class="panel panel-default">
+    <div class="panel-heading">Lecturer<span class="glyphicon glyphicon-menu-up glypbuttons LecturerPanelhead"></span></div>
+    <div class="panel-body Lecturerpanelbody" style="display:none;">
+    <?php
+      $query = 'SELECT Lecturer_ID FROM LECTURERS_IN_MODULE WHERE Module_ID="'.$_SESSION['moduleID'].'"';
+      $result = mysqli_query($db, $query) or die(mysqli_error($db));
+      while ($row = mysqli_fetch_assoc($result)){
+        $lectID = $row['Lecturer_ID'];
+        
+      }
+      $query2 = 'SELECT * FROM LECTURER WHERE Lecturer_ID="'.$lectID.'"';
+      $result = mysqli_query($db, $query2) or die(mysqli_error($db));
+      while ($row = mysqli_fetch_assoc($result)){
+        $lectName = $row['Lecturer_NAME'];
+        $lectOffice = $row['Office'];
+      echo "<p>Lecturer Name<span class='LecturerPanel'>".$lectName."</span></p>";
+      echo "<p>Lecturer Office<span class='LecturerPanel'>".$lectOffice."</span></p>";
+    }
+        ?>
+      </div>
+  </div>
+  </div>
+  </div>
+
+  </div>
 
     <!-- Modal -->
   <div class="modal fade" id="LectureModal" role="dialog">
@@ -173,35 +178,7 @@ echo "
           <div>
               <iframe src=".$file." width='80%;' height='350px;'></iframe>
           </div>";
-        }
-        
-          echo "
-            <div class='col-sm-6 '>
-              <div class='panel panel-default lectureComments'>
-                 <div class='panel-heading'>Comments</div>
-                 <div class='panel-body'>";
-                  $query = 'SELECT * FROM MATERIAL_COMMENTS WHERE Module_ID="'.$_SESSION['moduleID'].'"';
-                  $result = mysqli_query($db, $query);
-                  while ($row = mysqli_fetch_assoc($result)){
-                  $comment = $row["Comment"];
-                  $user = $row["User_ID"];
-                    echo "
-                     <div class='media'>
-                      <div class='media-left'>
-                          <span class='media-object'><b>".$user."</b></span>
-                      </div>
-                      <div class='media-body'>
-                        <p>".$comment."</p>
-                      </div>
-                    </div>";
-                  }
-                    ?>
-                    <div id="formCommentsBox">
-                     <form id="formComments" action="comments.php" method="post" onSubmit="commentalert()">
-                         <input type="text" name="comment" placeholder="Enter comment">
-                         <button type="submit">Make Comment</button>
-                     </form>
-                   </div>
+        }?>
 
                 </div>
               </div>
@@ -223,9 +200,6 @@ echo "
               </div>
             </div>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </div>
       </div>
 
     </div>
@@ -238,16 +212,7 @@ echo "
       <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
           <h4 class="modal-title">FAQ</h4>
-        </div>
-        <div class="modal-body">
-            <div class="well">
-                
-            </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         </div>
       </div>
 

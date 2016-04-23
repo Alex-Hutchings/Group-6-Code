@@ -1,10 +1,37 @@
 <?php session_start();
 include_once("config.php");
+include_once("menu.php");
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
+ <meta charset="utf-8" />
+  <!-- Firebase -->
+  <script src="https://cdn.firebase.com/js/client/2.2.4/firebase.js"></script>
+
+  <!-- CodeMirror -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.2.0/codemirror.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.2.0/codemirror.css" />
+
+  <!-- Firepad -->
+  <link rel="stylesheet" href="https://cdn.firebase.com/libs/firepad/1.2.0/firepad.css" />
+  <script src="https://cdn.firebase.com/libs/firepad/1.2.0/firepad.min.js"></script>
+
+  <style>
+    html { height: 100%; }
+    body { margin: 0; height: 100%; position: relative; }
+      /* Height / width / positioning can be customized for your use case.
+         For demo purposes, we make firepad fill the entire browser. */
+    #firepad-container {
+      width: 50%;
+      height: 50%;
+      position: absolute;
+      left: 50%;
+      top: 70%;
+      z-index: 100;
+    }
+  </style>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" media="screen" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css">
@@ -35,45 +62,53 @@ include_once("config.php");
 </head>
 
 <body>
+<div id="firepad-container"></div>
+<?php $id= $_SESSION['username'];?>
+  <script>
+    function init() {
+      //// Initialize Firebase.
+      //var firepadRef = getExampleRef();
+      // TODO: Replace above line with:
+      var firePadID = '<?php echo $id ?>';
+      var url = 'intellekt.firebaseio.com/firepads/';
+      var store = url.concat(firePadID);
+      var firepadRef = new Firebase(store);
+      //// Create CodeMirror (with lineWrapping on).
+      var codeMirror = CodeMirror(document.getElementById('firepad-container'), { lineWrapping: true });
+      //// Create Firepad (with rich text toolbar and shortcuts enabled).
+      var firepad = Firepad.fromCodeMirror(firepadRef, codeMirror,
+          { richTextToolbar: true, richTextShortcuts: true });
+      //// Initialize contents.
+      firepad.on('ready', function() {
+        if (firepad.isHistoryEmpty()) {
+          firepad.setHtml('<span style="font-size: 24px;">Group Six <span style="color: red">MSR Page!</span></span><br/><br/>Collaborative-editing made easy.\n');
+        }
+      });
+    }
+    // Helper to get hash from end of URL or generate a random one.
+    function getExampleRef() {
+      var ref = new Firebase('https://firepad.firebaseio-demo.com');
+      var hash = window.location.hash.replace(/#/g, '');
+      if (hash) {
+        ref = ref.child(hash);
+      } else {
+        ref = ref.push(); // generate unique location.
+        window.location = window.location + '#' + ref.key(); // add it as a hash to the URL.
+      }
+      return ref;
+    }
+    init();
+  </script>
 <?php
 $_SESSION['username'] = $_SESSION['username'];
-if(!isset($moduleID)){
+/*if(!isset($moduleID)){
   $moduleID = $_GET['id'];
 }
 else{
   $_SESSION['moduleID'] = $moduleID;
 }
 
-$_SESSION['moduleID'] = $moduleID;
-echo "
-    <div class='container-fluid'>
-        <nav class='navbar navbar-default'>
-          <div class='container-fluid'>
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class='navbar-header'>
-                <img src='logo.png'>
-            </div>
-
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <form action='' method='POST'>
-            <div class='collapse navbar-collapse' id='bs-example-navbar-collapse-1'>
-              <ul class='nav navbar-nav intelekt-nav-left'>
-                <li><a href='module.php'><img src='ModulesIcon.png' width='50%'></a></li>
-                <li><a href='Working_MSR_With_userlist.php'?moduleID=".$_SESSION['moduleID']."><img src='MSRicon.png' width='50%'></a></li>             
-                <li><a href='forumNew.php'><img src='forumsicon.png' width='50%'></a></li>
-              </ul>
-              </form>
-              
-              <div class='nav navbar-nav navbar-right'>
-                <span class='glyphicon glyphicon-user'></span>
-                <span>Username: </span>
-                <span>".$_SESSION['username']."</span>
-                <a href='logout.php'>Log out</button></a>
-              </div>
-            </div><!-- /.navbar-collapse -->
-          </div><!-- /.container-fluid -->
-        </nav>
-    </div>";
+$_SESSION['moduleID'] = $moduleID;*/
 ?>
 
         <?php
@@ -95,7 +130,7 @@ echo "
               <div class='panel panel-default lectureComments'>
                  <div class='panel-heading'>Comments</div>
                  <div class='panel-body'>";
-                  $query = 'SELECT * FROM MATERIAL_COMMENTS WHERE Module_ID="'.$_SESSION['moduleID'].'"';
+                  $query = 'SELECT * FROM MATERIAL_COMMENTS WHERE Material_ID="'.$_GET['id'].'"';
                   $result = mysqli_query($db, $query);
                   while ($row = mysqli_fetch_assoc($result)){
                   $comment = $row["Comment"];
@@ -112,8 +147,8 @@ echo "
                   }
                     ?>
                     <div id="formCommentsBox">
-                     <form id="formComments" action="comments.php" method="post" onSubmit="commentalert()">
-                         <input type="text" name="comment" placeholder="Enter comment">
+                     <form id="formComments" action="comments.php" method="post">
+                         <input type="text" name="comment" id="comment" placeholder="Enter comment">
                          <button type="submit">Make Comment</button>
                      </form>
                    </div>
@@ -122,21 +157,8 @@ echo "
               </div>
             </div>
 
-            <div class="col-sm-6 ">
-              <div class="panel panel-default lectureNotes">
-                  <div class="panel-heading">Personal Notes</div>
-                  <div class="panel-body">
-
-                      <div ng-app="">
-                        <label>Write your personal notes:</label>
-                        <p><textarea type="text" class="textnotes" rows="3" ng-model="name"></textarea>
-                        <button type="submit" class="btn btn-sm">Send</button>
-                        <div ng-bind="name"></div>
-
-                      </div>
-                  </div>
-              </div>
-            </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         </div>
       </div>
 
@@ -153,20 +175,10 @@ echo "
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           <h4 class="modal-title">FAQ</h4>
         </div>
-        <div class="modal-body">
-            <div class="well">
-                
-            </div>
-        </div>
       </div>
 
     </div>
   </div>
-  <script type="text/javascript">
-function commentalert(){
-  alert("Your comment has been posted!");
-}
-</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/js/bootstrap.min.js"></script>
 

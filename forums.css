@@ -1,0 +1,28 @@
+.forumlike {
+    margin-bottom: 6px;
+    margin-right: 4px;
+}
+
+.askbtn {
+   margin-left: 80%;
+}
+
+
+#topic{
+	font-size: 30px;
+	text-align: center;
+	margin-left: 20%;
+}
+
+.responsebody{
+	background-color: #E8E8E8;
+	border-top-left-radius: 1em;
+	border-top-right-radius: 1em;
+	border-bottom-right-radius: 1em;
+	border-bottom-left-radius: 1em;
+}
+
+
+#edit {
+	margin-left: 80%;
+}
