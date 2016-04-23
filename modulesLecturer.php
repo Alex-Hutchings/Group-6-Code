@@ -108,8 +108,10 @@ $_SESSION['moduleID'] = $moduleID;
 
                   Make slides accessable from (optional): 
                   <input type="date" min="2016-01-01" max="2050-01-01" name="access"><br>
-                  
-                  <input type="file" name="pdf" accept="application/pdf"><br>
+                  Upload as:<br>
+                  <input type="radio" name="type" value="pdf"> Lecture slides(.pdf)<br>
+                  <input type="radio" name="type" value="oth"> Other material(.png; .jpeg; .zip)<br>
+                  <input type="file" name="pdf" accept="application/pdf"><br> <!-- The accept value needs to depend on the radio button selected, or perhaps removed -->
                   <input type="submit" value="upload">
                 </form>
 
