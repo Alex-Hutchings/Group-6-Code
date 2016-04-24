@@ -45,11 +45,12 @@ include_once("menu.php");
 <body>
 <?php
 //$_SESSION['username'] = $_SESSION['username'];
-if(!isset($_SESSION['moduleID'])){
-  $_SESSION['moduleID'] = $_GET['id'];
+if(!isset($moduleID)){
+  $moduleID = $_GET['id'];
+  $_SESSION['moduleID'] = $moduleID;
 }
 else{
-  $moduleID = $_SESSION['moduleID'];
+  $_SESSION['moduleID'] = $moduleID;
 }
 
 //$moduleID = $_SESSION['moduleID'] = ;

@@ -117,13 +117,14 @@ $_SESSION['moduleID'] = $moduleID;*/
         while ($row = mysqli_fetch_assoc($result)){
         $materialTitle = $row['Material_TITLE'];
         $file = $row['File'];
-        $_SESSION['materialID'] = $row['Material_ID'];
+        //$_SESSION['materialID'] = $row['Material_ID'];
         echo "<div class='modal-body'>
        <h4 class='modal-title'> ".$materialTitle." </h4>
           <div>
               <iframe src=".$file." width='80%;' height='350px;'></iframe>
           </div>";
         }
+        $_SESSION['material'] = $_GET['id'];
         
           echo "
             <div class='col-sm-6 '>
@@ -149,7 +150,7 @@ $_SESSION['moduleID'] = $moduleID;*/
                     <div id="formCommentsBox">
                      <form id="formComments" action="comments.php" method="post">
                          <input type="text" name="comment" id="comment" placeholder="Enter comment">
-                         <button type="submit">Make Comment</button>
+                         <button type="submit">Post Comment</button>
                      </form>
                    </div>
 

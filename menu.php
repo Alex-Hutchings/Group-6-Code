@@ -19,7 +19,7 @@ echo"
                 <li><a href='module.php'><img src='ModulesIcon.png' width='50%'></a></li>
                 <li><a href='Working_MSR_With_userlist.php'?moduleID=".$_SESSION['moduleID']."><img src='MSRicon.png' width='50%'></a></li>             
                 <li><a href='listing.php'><img src='forumsicon.png' width='50%'></a></li>
-                <li><a href='module-1.php'?moduleID=".$_SESSION['moduleID']."><img src = 'ModulesIcon.png' width='50%'></a></li>
+                <FORM><INPUT Type='button' VALUE='Back' onClick='history.go(-1);return true;'></FORM>
               </ul>
               </form>
               
