@@ -6,7 +6,7 @@ echo"
           <div class='container-fluid'>
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class='navbar-header'>
-                <a href='module-lect.php'><img src='logo.png'></a>
+                <a href='module.php'></li><img src='logo.png'></a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -16,6 +16,7 @@ echo"
                 <li><a href='module.php'><img src='ModulesIcon.png' width='50%'></a></li>
                 <li><a href='Working_MSR_With_userlist.php'?moduleID=".$_SESSION['moduleID']."><img src='MSRicon.png' width='50%'></a></li>             
                 <li><a href='listing.php'><img src='forumsicon.png' width='50%'></a></li>
+                <li><a href='module-1.php'?moduleID=".$_SESSION['moduleID']."><img src = 'ModulesIcon.png' width='50%'></a></li>
               </ul>
               </form>
               

@@ -15,6 +15,7 @@ echo"
                 <li><a href='module-lect.php'><img src='ModulesIcon.png' width='50%'></a></li>
                 <li><a href='Working_MSR_With_userlist.php'?moduleID=".$_SESSION['moduleID']."><img src='MSRicon.png' width='50%'></a></li>             
                 <li><a href='listing.php'><img src='forumsicon.png' width='50%'></a></li>
+                <li><a href='modulesLecturer.php'?moduleID=".$_SESSION['moduleID']."><img src = 'ModulesIcon.png' width='50%'></a></li>
               </ul>
               </form>
               

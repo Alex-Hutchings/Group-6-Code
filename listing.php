@@ -4,7 +4,13 @@
   // Start/continue the session.
   session_start();
   include_once("config.php");
-  include_once("menu.php");
+  if($_SESSION['lecturer'] == true) {
+    $query = 'SELECT * FROM LECTURERS_IN_MODULE WHERE Lecturer_ID="'.$_SESSION['username'].'"';
+    include_once("lectMenu.php");
+}else{
+    $query = 'SELECT * FROM STUDENT_TAKES_MODULE WHERE Student_ID="'.$_SESSION["username"].'"';
+    include_once("menu.php");
+}
   // Connect to the database. (Left here for testing purposes. Put these into an external file, e.g. config.php.)
 
   //// User must be logged in to view & to post.
