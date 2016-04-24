@@ -6,7 +6,7 @@ echo"
           <div class='container-fluid'>
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class='navbar-header'>
-                <img src='logo.png'>
+                <a href='module-lect.php'><img src='logo.png'></a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <form action='' method='POST'>
