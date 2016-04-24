@@ -39,7 +39,7 @@ include_once("lectMenu.php");
 
 <?php
 //$_SESSION['username'] = $_SESSION['username'];
-if(!isset($moduleID){
+if(!isset($moduleID)){
   $moduleID = $_GET['id'];
   $_SESSION['moduleID'] = $moduleID;
 }
