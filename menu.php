@@ -1,4 +1,7 @@
 <?php
+// This code is the systems navigation bar.
+// It is specific to the student users navigation with the links going to 
+// their own pages that they can view material too rather than being able to upload material like lecturers.
 echo "<link rel='stylesheet' href='style.css'>";
 echo"    
     <div class='container-fluid'>
