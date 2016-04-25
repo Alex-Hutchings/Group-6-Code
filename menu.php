@@ -3,7 +3,13 @@
 // It is specific to the student users navigation with the links going to 
 // their own pages that they can view material too rather than being able to upload material like lecturers.
 echo "<link rel='stylesheet' href='style.css'>";
-$moduleID = null;
+if(!isset($moduleID)){
+  $moduleID = $_GET['id'];
+  $_SESSION['moduleID'] = $moduleID;
+}
+else {
+  $moduleID = $_SESSION['moduleID'];
+}
 echo"    
     <div class='container-fluid'>
         <nav class='navbar navbar-default'>
