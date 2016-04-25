@@ -30,18 +30,66 @@ include_once("lectMenu.php");
                 $(".toUpload").hide();
                 $(".lecturesPreview").show();
             });
+          $('#element').click(function() {
+            if($('#radio_button1').is(':checked')) {
+              $('#element').attr('accept', 'application/pdf');
+              $('#element').attr('name', 'pdf');
+             }
+            if($('#radio_button2').is(':checked')) {
+              $('#element').attr('accept', 'application/zip');
+              $('#element').attr('name', 'zip');
+            }
+            if($('#radio_button3').is(':checked')) {
+             $('#element').attr('accept', 'application/png');
+             $('#element').attr('name', 'png');
+            }
+            if($('#radio_button4').is(':checked')) {
+              $('#element').attr('accept', 'application/jpeg');
+              $('#element').attr('name', 'jpeg');
+            }
+          });
         });
+
     </script>
+
+<!-- This is code that checks the extension of the file uploaded. Not sure if it works since it gives php purposefully put errors -->
+  <!-- <script type="text/javascript">
+    var _validFileExtensions = [".pdf", ".jpeg", ".zip", ".png"];
+      function Validate(oForm) {
+          var arrInputs = oForm.getElementsByTagName("input");
+          for (var i = 0; i < arrInputs.length; i++) {
+              var oInput = arrInputs[i];
+              if (oInput.type == "file") {
+                  var sFileName = oInput.value;
+                  if (sFileName.length > 0) {
+                      var blnValid = false;
+                      for (var j = 0; j < _validFileExtensions.length; j++) {
+                          var sCurExtension = _validFileExtensions[j];
+                          if (sFileName.substr(sFileName.length - sCurExtension.length, sCurExtension.length).toLowerCase() == sCurExtension.toLowerCase()) {
+                              blnValid = true;
+                              break;
+                          }
+                      }
+
+                      if (!blnValid) {
+                          alert("Sorry, " + sFileName + " is invalid, allowed extensions are: " + _validFileExtensions.join(", "));
+                          return false;
+                      }
+                  }
+              }
+
+          return true;
+      }
+    </script> -->
 
 </head>
 
 <body>
 
 <?php
-//$_SESSION['username'] = $_SESSION['username'];
+$_SESSION['username'] = $_SESSION['username'];
 if(!isset($moduleID)){
   $moduleID = $_GET['id'];
-  $_SESSION['moduleID'] = $moduleID;
 }
 else{
   $_SESSION['moduleID'] = $moduleID;
@@ -81,10 +129,9 @@ $_SESSION['moduleID'] = $moduleID;
                     echo"
                     <div class='modules-lect-button'>
                     <a href='' data-toggle='modal' data-target='#LectureModal'  data-backdrop='static' data-keyboard='false'>".$i.". ".$materialTitle."</a>
+                    <a href='cloud_delete.php?file=".$materialLink."><button class='btn'>Delete</button></a>
                     </div>";
                     $i++;
-                    // ADD echo"<a href='cloud_delete.php?file=".$materialLink."><button>Delete</button></a>";
-             
               }
                 ?>
 
@@ -102,21 +149,23 @@ $_SESSION['moduleID'] = $moduleID;
                 <!-- button for uplaod... it hides the upload button and iframe and it shows the upload form/window -->
                <!-- <button class="btn-default btnUpload">Upload file</button> -->
                <h3>Upload Lecture Material</h3>
-                <form action="cloud_upload.php" method="post">
+                <form action="cloud_upload.php" method="post" onsubmit="return Validate(this);">
 
-                  Enter a title: 
+                  Enter a title:
                   <input type="text" name="title"><br>
 
-                   Make slides accessable from (optional): 
-                    <input type="date" min="2016-01-01" max="2050-01-01" name="access"><br>
-                 
-                  <input type="file" name="pdf" accept="application/pdf"><br>
+                  Make slides accessable from (optional):
+                  <input type="date" min="2016-01-01" max="2050-01-01" name="access"><br>
                   Upload as:<br>
-                  <input type="radio" name="type" value="pdf"> Lecture slides(.pdf)<br>
-                  <input type="radio" name="type" value="oth"> Other material(.png; .jpeg; .zip)<br>
-                  <input type="file" name="pdf" accept="application/pdf"><br> <!-- The accept value needs to depend on the radio button selected, or perhaps removed -->
-                  <input type="submit" value="upload">
-                  </form>
+                  <input type="radio" name="type" value="pdf" id="radio_button1"> Lecture slides(.pdf)<br>
+                  <input type="radio" name="type" value="zip" id="radio_button2"> Zip files(.zip)<br>
+                   <input type="radio" name="type" value="png" id="radio_button3"> Png files(.png)<br>
+                  <input type="radio" name="type" value="jpeg" id="radio_button4"> Jpeg files(.jpeg)<br>
+                  <input type="file" name="my file" value="pdf" id="element"><br>
+                  <!-- If you are using the commented code for the validation remove the javascript code that changes the name of the tag above-->
+                   <!-- The accept value needs to depend on the radio button selected, or perhaps removed -->
+                  <input type="submit" value="Upload">
+                </form>
 
             </div>
             </div>
