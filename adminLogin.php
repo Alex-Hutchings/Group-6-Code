@@ -9,16 +9,12 @@ if( $db === FALSE ){
 else{
 $username = (isset($_POST["username"]) ? $_POST["username"] : null);
 $password= (isset($_POST["password"]) ? $_POST["password"] : null);
-
-
 $command = 'SELECT * FROM ADMIN WHERE Admin_ID ="'.$username.'"';
 $result = mysqli_query($db, $command);
     while($row1 = mysqli_fetch_assoc($result)) {
 $user = $row1['Admin_ID'];
 $pass = $row1['Password'];
-
  }
-
 if($user == $username && $pass == $password){
 header('location:adminMenu.html');
 }
