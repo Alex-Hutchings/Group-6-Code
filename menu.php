@@ -4,7 +4,9 @@
 // their own pages that they can view material too rather than being able to upload material like lecturers.
 echo "<link rel='stylesheet' href='style.css'>";
 if(!isset($moduleID)){
+  if(basename($_SERVER['REQUEST_URI'], '?' . $_SERVER['QUERY_STRING']) == 'module-1.php')
   $moduleID = $_GET['id'];
+}
   $_SESSION['moduleID'] = $moduleID;
 }
 else {
