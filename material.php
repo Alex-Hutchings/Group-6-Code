@@ -112,7 +112,7 @@ $_SESSION['moduleID'] = $moduleID;*/
 ?>
 
         <?php
-        $materialQuery = 'SELECT * FROM MATERIAL WHERE Material_ID="'.$_GET['id'].'"';
+        $materialQuery = 'SELECT * FROM MATERIAL WHERE Material_ID="'.$_GET['matID'].'"';
         $result = mysqli_query($db, $materialQuery);
         while ($row = mysqli_fetch_assoc($result)){
         $materialTitle = $row['Material_TITLE'];
@@ -124,14 +124,14 @@ $_SESSION['moduleID'] = $moduleID;*/
               <iframe src=".$file." width='80%;' height='350px;'></iframe>
           </div>";
         }
-        $_SESSION['material'] = $_GET['id'];
+        $_SESSION['material'] = $_GET['matID'];
         
           echo "
             <div class='col-sm-6 '>
               <div class='panel panel-default lectureComments'>
                  <div class='panel-heading'>Comments</div>
                  <div class='panel-body'>";
-                  $query = 'SELECT * FROM MATERIAL_COMMENTS WHERE Material_ID="'.$_GET['id'].'"';
+                  $query = 'SELECT * FROM MATERIAL_COMMENTS WHERE Material_ID="'.$_GET['matID'].'"';
                   $result = mysqli_query($db, $query);
                   while ($row = mysqli_fetch_assoc($result)){
                   $comment = $row["Comment"];

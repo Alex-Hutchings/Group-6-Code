@@ -86,7 +86,7 @@ else{
                       $Material_ID = $row['Material_ID'];
                     echo"
                     <div class='modules-lect-button'>
-                    <a href='material.php?id=".$Material_ID."'>".$i.". ".$materialTitle."</a>
+                    <a href='material.php?matID=".$Material_ID."'>".$i.". ".$materialTitle."</a>
                     </div>";
                     $i++;
                     $_SESSION['material'] = $Material_ID;

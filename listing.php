@@ -3,10 +3,12 @@
   // ND.
   // Start/continue the session.
   session_start();
+  $moduleID = $_SESSION['moduleID'];
   include_once("config.php");
   if($_SESSION['lecturer'] == true) {
     $query = 'SELECT * FROM LECTURERS_IN_MODULE WHERE Lecturer_ID="'.$_SESSION['username'].'"';
     include_once("lectMenu.php");
+
 }else{
     $query = 'SELECT * FROM STUDENT_TAKES_MODULE WHERE Student_ID="'.$_SESSION["username"].'"';
     include_once("menu.php");

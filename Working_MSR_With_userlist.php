@@ -3,6 +3,7 @@
 <html>
 <?php
 session_start();
+$moduleID = $_SESSION['moduleID'];
 $mid = $_SESSION['moduleID'];
 $sid = $_SESSION['username'];
 if($_SESSION['lecturer'] == true) {
@@ -15,6 +16,11 @@ if($_SESSION['lecturer'] == true) {
 ?>
 
 <head>
+  <link rel="stylesheet" media="screen" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <link href="masterStyle.css" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="styleUpdate.css">
   <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script> AJAX-->
   <meta charset="utf-8" />

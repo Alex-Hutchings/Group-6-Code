@@ -3,8 +3,11 @@
 // It is specific to the lecturer users navigation with the links going to 
 // their own pages that they can upload material too rather than the students view.
 echo "<link rel='stylesheet' href='style.css'>";
-$moduleID = null;
-
+if(basename($_SERVER['REQUEST_URI'], '?' . $_SERVER['QUERY_STRING']) == 'modulesLecturer.php')
+  $moduleID = $_GET['id'];
+else {
+  $moduleID = $_SESSION['moduleID'];
+}
 echo"    
     <div class='container-fluid'>
         <nav class='navbar navbar-default'>
@@ -18,8 +21,8 @@ echo"
             <div class='collapse navbar-collapse' id='bs-example-navbar-collapse-1'>
               <ul class='nav navbar-nav intelekt-nav-left'>
                 <li><a href='module-lect.php'><img src='ModulesIcon.png' width='50%'></a></li>
-                <li><a href='Working_MSR_With_userlist.php'?moduleID=".$_SESSION['moduleID']."><img src='MSRicon.png' width='50%'></a></li>             
-                <li><a href='listing.php'><img src='forumsicon.png' width='50%'></a></li>
+                <li><a href='Working_MSR_With_userlist.php'?moduleID=".$moduleID."><img src='MSRicon.png' width='50%'></a></li>             
+                <li><a href='listing.php'?id=".$moduleID."><img src='forumsicon.png' width='50%'></a></li>
                 <FORM><INPUT Type='button' VALUE='Back' onClick='history.go(-1);return true;'></FORM>
               </ul>
               </form>

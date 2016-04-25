@@ -1,7 +1,7 @@
 <?php 
 session_start(); 
-// if(isset($_SESSION["username"])){
-// header('location:module.php');}
+if(isset($_SESSION["username"])){
+header('location:module.php');}
  ?>
 <?php
 $user = 'x';
