@@ -46,8 +46,15 @@ include_once("menu.php");
 <?php
 //$_SESSION['username'] = $_SESSION['username'];
 if(!isset($moduleID)){
+  $query = "SELECT * FROM MODULE WHERE Module_ID = '".$_GET['id']."'";
+  $checkModuleID = mysqli_query($db, $query);
+
+if(mysqli_num_rows($checkModuleID) > 0){
   $moduleID = $_GET['id'];
-  $_SESSION['moduleID'] = $moduleID;
+}
+else{
+  header('location: error.html');
+}
 }
 else{
   $_SESSION['moduleID'] = $moduleID;
