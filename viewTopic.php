@@ -12,6 +12,7 @@
     $query = 'SELECT * FROM STUDENT_TAKES_MODULE WHERE Student_ID="'.$_SESSION["username"].'"';
     include_once("menu.php");
 }
+
   // Connect to the database. (Left here for testing purposes. Put these into an external file, e.g. config.php.)
 
   //// User must be logged in to view & to post?
@@ -22,14 +23,29 @@
 
   // For this page to work, GET variables must be such that website.com/forumNew2.php?mID=[moduleID]&pID=[postID].
   if (isset($_GET['mID'])) {
-    $moduleID = mysqli_real_escape_string($db, $_GET['mID']); // website.com/forumNew2.php?mID=CM1000
-  }
-  else die("Error: No module ID.");
+    $moduleID = mysqli_real_escape_string($db, $_GET['mID']);
+    $query = "SELECT * FROM MODULE WHERE Module_ID = '".$_GET['mID']."'";
+    $checkModuleID = mysqli_query($db, $query);
 
-  if (isset($_GET['pID'])) {
-    $postID = mysqli_real_escape_string($db, $_GET['pID']); // website.com/forumNew2.php?pID=1
-  }
-  else die("Error: No post ID.");
+if(mysqli_num_rows($checkModuleID) > 0){
+  $moduleID = $_GET['mID'];
+}
+else{
+  header('location: error.html');
+}
+}
+if (isset($_GET['pID'])) {
+  $postID = mysqli_real_escape_string($db, $_GET['pID']);
+  $query = "SELECT * FROM REPLY WHERE REPLY_ID = '".$_GET['pID']."'";
+  $checkPostID = mysqli_query($db, $query);
+
+if(mysqli_num_rows($checkPostID) > 0){
+  $postID = $_GET['pID'];
+}
+else{
+  header('location: error.html');
+}
+}
 
   $query = "SELECT MODULE.Module_ID, MODULE.Module_TITLE, USER.Forename, USER.Surname, TOPIC.* 
             FROM MODULE, TOPIC, USER 

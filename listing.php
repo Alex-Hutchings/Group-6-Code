@@ -25,7 +25,9 @@
   if (isset($_SESSION['moduleID'])) {
     $moduleID = mysqli_real_escape_string($db, $_SESSION['moduleID']); // website.com/forumNew2.php?mID=CM1000
   }
-  else die("Error: No module ID."); // Testing only - REPLACE WITH A REDIRECT TO ERROR PAGE!
+else{
+  header('location: error.html');
+}// REDIRECT TO ERROR PAGE!
 
   // If no results are returned (null) then the module ID must be invalid - kill the script/redirect to error.
   $query = "SELECT Module_TITLE FROM MODULE WHERE Module_ID = '$moduleID'";
@@ -36,7 +38,9 @@
         $moduleName = $row["Module_TITLE"];
       }
     }
-    else die("Error: Invalid module ID."); // Testing only - REPLACE WITH A REDIRECT TO ERROR PAGE!
+    else{
+  header('location: error.html');
+} //REDIRECT TO ERROR PAGE!
   }
 
 ?>
