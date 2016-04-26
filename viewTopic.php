@@ -156,7 +156,7 @@
 
   <!-- Make this section available to lecturers only. --> 
   <!-- \n\n' + document.getElementById('noise').value); (Old JavaScript for return confirm) -->
-  <form method="post" action=<?php echo "\"submit.php?mID=".$moduleID."&pID=".$postID."\"" ?> onsubmit="return confirm('Are you sure you want to submit this post?')">
+  <form method="post" action=<?php echo "\"submit.php?mID=".$moduleID."&pID=".$postID."\"" ?> >
       <fieldset>
         <label for="noise">
           Post a reply:

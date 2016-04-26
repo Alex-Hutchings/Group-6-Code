@@ -1,6 +1,29 @@
 <?php session_start();
 include_once("config.php");
 include_once("menu.php");
+if($_SESSION['lecturer'] == true) {
+    $query = 'SELECT * FROM LECTURERS_IN_MODULE WHERE Lecturer_ID="'.$_SESSION['username'].'"';
+    include_once("lectMenu.php");
+}else{
+    $query = 'SELECT * FROM STUDENT_TAKES_MODULE WHERE Student_ID="'.$_SESSION["username"].'"';
+    include_once("menu.php");
+}
+
+if(isset($moduleID)){
+  $query = "SELECT * FROM MODULE WHERE Module_ID = '".$_GET['id']."'";
+  $checkModuleID = mysqli_query($db, $query);
+
+if(mysqli_num_rows($checkModuleID) > 0){
+  $moduleID = $_GET['id'];
+}
+else{
+  header('location: error.html');
+}
+}
+else{
+  $_SESSION['moduleID'] = $moduleID;
+}
+$_SESSION['moduleID'] = $moduleID;
 ?>
 
 <!DOCTYPE html>
@@ -44,23 +67,6 @@ include_once("menu.php");
 
 <body>
 <?php
-//$_SESSION['username'] = $_SESSION['username'];
-if(!isset($moduleID)){
-  $query = "SELECT * FROM MODULE WHERE Module_ID = '".$_GET['id']."'";
-  $checkModuleID = mysqli_query($db, $query);
-
-if(mysqli_num_rows($checkModuleID) > 0){
-  $moduleID = $_GET['id'];
-}
-else{
-  header('location: error.html');
-}
-}
-else{
-  $_SESSION['moduleID'] = $moduleID;
-}
-
-//$moduleID = $_SESSION['moduleID'] = ;
 
 ?>
     <div class="row">
@@ -101,6 +107,10 @@ else{
                 ?>
 
                 <h4>Other Material</h4>
+                <a href="moduleFeedbackForm.php"><button class="btn-md">Module Feedback</button></a>
+                   <input hidden type='text' id='moduleID' name='moduleID' value= <?php $moduleID ?>>
+
+                <h4>Module Feedback</h4>
                 <a href="moduleFeedbackForm.php"><button class="btn-md">Module Feedback</button></a>
                    <input hidden type='text' id='moduleID' name='moduleID' value= <?php $moduleID ?>>
             </div>
@@ -191,25 +201,6 @@ else{
                 </div>
               </div>
             </div>
-
-            <div class="col-sm-6 ">
-              <div class="panel panel-default lectureNotes">
-                  <div class="panel-heading">Personal Notes</div>
-                  <div class="panel-body">
-
-                      <div ng-app="">
-                        <label>Write your personal notes:</label>
-                        <p><textarea type="text" class="textnotes" rows="3" ng-model="name"></textarea>
-                        <button type="submit" class="btn btn-sm">Send</button>
-                        <div ng-bind="name"></div>
-
-                      </div>
-                  </div>
-              </div>
-            </div>
-        </div>
-      </div>
-
     </div>
   </div>
 

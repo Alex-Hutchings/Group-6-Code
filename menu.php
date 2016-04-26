@@ -24,7 +24,7 @@ echo"
                 <li><a href='module.php'><img src='ModulesIcon.png' width='50%'></a></li>
                 <li><a href='Working_MSR_With_userlist.php'?moduleID=".$moduleID."><img src='MSRicon.png' width='50%'></a></li>             
                 <li><a href='listing.php'?id=".$moduleID."><img src='forumsicon.png' width='50%'></a></li>
-                <FORM><INPUT Type='button' VALUE='Back' onClick='history.go(-1);return true;'></FORM>
+                <img src='back.png' width ='15%' onClick='history.go(-1);return true;'></img>
               </ul>
               </form>
               

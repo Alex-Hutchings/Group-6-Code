@@ -142,6 +142,7 @@ while($row1 = mysqli_fetch_assoc($result)){
 	echo "<br>";
 
 }
+echo "<div style='background-color:white;'>";
 echo "The results for question one are: ", "terrible = ", $q1terribleCount, " & bad = ", $q1BadCount, " & ok = ", $q1OkCount, "& good =" ,$q1goodCount, "& excellent =", $q1Excellent ,"<br>";
 echo "The results for question two are: ", "terrible = ",$q2terribleCount, "& bad = ",$q2BadCount, "& ok = ",$q2OkCount, "& good =" ,$q2goodCount, "& excellent =",$q2Excellent,"<br>";
 echo "The results for question three are: ","terrible = ", $q3terribleCount,"& bad = ", $q3BadCount,"& ok = ", $q3OkCount, "& good =" ,$q3goodCount, "& excellent =",$q3Excellent,"<br>";
@@ -152,6 +153,8 @@ echo "Some additional comments from students: <br>";
 for ($key_Number = 0; $key_Number < sizeof($array); $key_Number++) {
 print $array[$key_Number];
 echo "<br>";
+
+echo "</div>";
 
 }
 
