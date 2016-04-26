@@ -2,7 +2,16 @@
 include_once("config.php");
 include_once("menu.php");
 ?>
+<?php
 
+  $query = "SELECT * FROM MATERIAL WHERE Material_ID = '".$_GET['id']."'";
+  $checkMaterialID = mysqli_query($db, $query);
+
+if(mysqli_num_rows($checkMaterialID) <= 0){
+  header('location: error.html');
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
