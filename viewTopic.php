@@ -65,7 +65,7 @@
     <title>Intellekt Forum - <?php echo "$moduleName - \"$postSubject\""?></title>
 
 <style type="text/css" media="all">
-  @import "css/widgEditor.css";
+  @import "forumCSS/widgEditor.css";
 </style>
     <!-- Bootstrap -->
   <link rel="stylesheet" media="screen" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css">

@@ -54,7 +54,7 @@
 	<!--  -->
 
 	<style type="text/css" media="all">
-  @import "css/widgEditor.css";
+  @import "forumCSS/widgEditor.css";
 </style>
 
 </head>
