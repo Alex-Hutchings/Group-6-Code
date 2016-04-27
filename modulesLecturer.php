@@ -102,32 +102,55 @@ $_SESSION['moduleID'] = $moduleID;
  
               }
               echo"<h4>Lecture Material</h4>";
-              $query = 'SELECT * FROM MATERIAL WHERE Module_ID="'.$_SESSION['moduleID'].'"';
+              $query = 'SELECT * FROM MATERIAL WHERE Module_ID = "'.$_SESSION['moduleID'].'" AND Material_TYPE = "pdf"';
                     $result = mysqli_query($db, $query);
                     $i = 1;
                     while ($row = mysqli_fetch_assoc($result)){
                       $materialTitle = $row['Material_TITLE'];
                       $materialLink = $row['File'];
-                    echo"
+                      $access = $row['Access_DATE'];     
+                      echo"
                     <div class='modules-lect-button'>
-                    <a href='' data-toggle='modal' data-target='#LectureModal'  data-backdrop='static' data-keyboard='false'>".$i.". ".$materialTitle."</a>
+                    <a href='' data-toggle='modal' data-target='#LectureModal'  data-backdrop='static' data-keyboard='false'>".$i.".".$materialTitle." </a>
+                    <form action='cloud_delete.php' method='post'>
+                    <input name='del' type='hidden' value='".$materialTitle."'>
+                    <input type='submit' value='Delete'>
+                    </form>
                     </div>";
                     $i++;
-                    // ADD echo"<a href='cloud_delete.php?file=".$materialLink."><button>Delete</button></a>";
-             
+                    if($access > date("Y-m-d")){
+                      echo "Set to be accessible from " . $access;
+                    }
               }
                 ?>
+                <h4>Other Material</h4>
+                <?php 
+                $query = 'SELECT * FROM MATERIAL WHERE Module_ID = "'.$_SESSION['moduleID'].'" AND Material_TYPE = "oth"';
+                    $result = mysqli_query($db, $query);
+                    $i = 1;
+                    while ($row = mysqli_fetch_assoc($result)){
+                      $materialTitle = $row['Material_TITLE'];
+                      $materialLink = $row['File'];
+                      $access = $row['Access_DATE'];     
+                      echo"
+                    <div class='modules-lect-button'>
+                    <a href='' data-toggle='modal' data-target='#LectureModal'  data-backdrop='static' data-keyboard='false'>".$i.".".$materialTitle." </a>
+                    <form action='cloud_delete.php' method='post'>
+                    <input name='del' type='hidden' value='".$materialTitle."'>
+                    <input type='submit' value='Delete'>
+                    </form>
+                    </div>";
+                    $i++;
+                    if($access > date("Y-m-d")){
+                      echo "Set to be accessible from " . $access;
+                    }
+              }?>
 
                 <h4>Module Feedback</h4>
                 <a href="moduleFeedbackForm.php"><button class="btn-md">Module Feedback</button></a>
                    <input hidden type='text' id='moduleID' name='moduleID' value= <?php $moduleID ?>>
             </div>
         </div>
-
-
-
-
-
 
                 <!-- button for uplaod... it hides the upload button and iframe and it shows the upload form/window -->
                <!-- <button class="btn-default btnUpload">Upload file</button> -->
@@ -138,16 +161,16 @@ $_SESSION['moduleID'] = $moduleID;
                   <input type="text" name="title"><br>
 
                   Make slides accessable from (optional):
-                  <input type="date" min="2016-01-01" max="2050-01-01" name="access"><br>
+                  <?php
+                  echo"
+                  <input type='date' min=".date("Y-m-d")." max='2050-01-01' value=".date("Y-m-d")." name='access'><br>
                   Upload as:<br>
-                  <input type="radio" name="type" value="pdf" id="radio_button1"> Lecture slides(.pdf)<br>
-                  <input type="radio" name="type" value="zip" id="radio_button2"> Zip files(.zip)<br>
-                   <input type="radio" name="type" value="png" id="radio_button3"> Png files(.png)<br>
-                  <input type="radio" name="type" value="jpeg" id="radio_button4"> Jpeg files(.jpeg)<br>
-                  <input type="file" name="myfile" value="pdf" id="element"><br>
-                  <!-- If you are using the commented code for the validation remove the javascript code that changes the name of the tag above-->
-                   <!-- The accept value needs to depend on the radio button selected, or perhaps removed -->
-                  <input type="submit" value="Upload">
+                  <input type='radio' name='type' value='pdf' id='radio_button1' checked='checked' > Lecture slides ( .pdf )<br>
+                  <input type='radio' name='type' value='oth' id='radio_button2'> Other material ( images, .zip archives )<br>
+                  <input type='file' name='upload' id='element'><br>
+                  <input type='submit' value='Upload'>
+                  ";?>
+                </form>
                 </form>
 
             </div>
