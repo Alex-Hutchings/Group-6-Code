@@ -44,7 +44,7 @@ header('location:module.php');
 }
 else{
 if(null != $username){
-echo "Wrong username or password";
+echo "<script> alert('Wrong username or password')</script>";
 }
 }
 }
