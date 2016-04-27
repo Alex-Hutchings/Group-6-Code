@@ -2,25 +2,15 @@
 <body>
 
 <?php
-
-ession_start();
+session_start();
 include_once("config.php");
-
-require_once __DIR__ . '/vendor/autoload.php';
+require_once __DIR__.'/vendor/autoload.php';
 
 //session
-
-session_start()
-$module = $_SESSION['moduleID']."/";
+$id = $_SESSION['moduleID'];
+$module = $id."/";
 $uploader = $_SESSION["username"];
-$title = $_SESSION["title"];
-
-
-// values for testing. Delete for functionality.
-$module = "CM1000"."/";
-$uploader = 1445555;
-$title = "Title";
-
+$title = $_POST["del"];
 /**
  * Connect to Google Cloud Storage API
  */
@@ -28,9 +18,7 @@ $client = new Google_Client();
 $client->setApplicationName("Intellekt");
 $client->setAccessType("offline");
 
-
 // $stored_access_token - your cached oauth access token 
-
 $client->setAuthConfig('Intellekt-12aebbba5d44.json');
 $client->addScope(Google_Service_Storage::DEVSTORAGE_FULL_CONTROL);
 
@@ -46,36 +34,39 @@ $storage = new Google_Service_Storage($client);
 $file_name = $module.$title;
 $storage->objects->delete("intellekt_file_storage", $file_name);
 
-
 //database
 if( $db === FALSE ){
-header( "Location: error.html" ); die();
+	header( "Location: error.html" ); die();
 }
-
 $update = null;
 
 if ($db->connect_error) {
-die("Connection failed: " . $db->connect_error); }
-
+	die("Connection failed: " . $db->connect_error); 
+}
 
 if(isset($_SESSION['id'])){
-$update = $_SESSION['id'];
+	$update = $_SESSION['id'];
 }
 // sql command to update a record
 
-$link = "https://storage.googleapis.com/intellekt_file_storage/'".$module.$title."'";
-
-$id = $_GET['id'];
-$sql = "DELETE FROM MATERIAL WHERE File = $link" ;
+$link = "https://storage.googleapis.com/intellekt_file_storage/".$module.$title;
+$sql = "DELETE FROM MATERIAL WHERE File = '".$link."'" ;
 
 if ($db->query($sql) === TRUE) {
-$message = "Record added successfully"; echo $message;
+	$message = "Record added successfully"; echo $message;
 } else {
-echo "Error updating record: " . $db->error;
-} $db->close();
+	echo "Error updating record: " . $db->error;
+} 
 
+$db->close();
+
+echo "
+<p>Done</p>
+
+<a href='modulesLecturer.php?id='".$id."'>Refresh</a>
+"
 ?>
-
+<p>Done</p>
 </body>
 </html>
 

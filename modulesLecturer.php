@@ -17,8 +17,8 @@ include_once("lectMenu.php");
 
     <title>Modules</title>
 
-    <!-- script that shows/hides the uplaod container -->
-   <script>
+     <!-- script that shows/hides the uplaod container -->
+    <script>
         $(document).ready(function(){
             $(".btnUpload").click(function(){
                 $(".toUpload").show();
@@ -49,25 +49,52 @@ include_once("lectMenu.php");
             }
           });
         });
+
     </script>
 
+<!-- This is code that checks the extension of the file uploaded. Not sure if it works since it gives php purposefully put errors -->
+  <!-- <script type="text/javascript">
+    var _validFileExtensions = [".pdf", ".jpeg", ".zip", ".png"];
+      function Validate(oForm) {
+          var arrInputs = oForm.getElementsByTagName("input");
+          for (var i = 0; i < arrInputs.length; i++) {
+              var oInput = arrInputs[i];
+              if (oInput.type == "file") {
+                  var sFileName = oInput.value;
+                  if (sFileName.length > 0) {
+                      var blnValid = false;
+                      for (var j = 0; j < _validFileExtensions.length; j++) {
+                          var sCurExtension = _validFileExtensions[j];
+                          if (sFileName.substr(sFileName.length - sCurExtension.length, sCurExtension.length).toLowerCase() == sCurExtension.toLowerCase()) {
+                              blnValid = true;
+                              break;
+                          }
+                      }
+
+                      if (!blnValid) {
+                          alert("Sorry, " + sFileName + " is invalid, allowed extensions are: " + _validFileExtensions.join(", "));
+                          return false;
+                      }
+                  }
+              }
+
+          return true;
+      }
+    </script> -->
 </head>
 
 <body>
 
 <?php
-//$_SESSION['username'] = $_SESSION['username'];
+$_SESSION['username'] = $_SESSION['username'];
 if(!isset($moduleID)){
   $moduleID = $_GET['id'];
-  $_SESSION['moduleID'] = $moduleID;
 }
 else{
   $_SESSION['moduleID'] = $moduleID;
 }
 $_SESSION['moduleID'] = $moduleID;
 ?>
-
-
 
     <!-- where the lectures that are uplaoded will be listed and when clicked will display/preview the lecture in the iframe  -->
     <div class="container">
@@ -79,32 +106,37 @@ $_SESSION['moduleID'] = $moduleID;
                 <?php
                     $query = 'SELECT * FROM MODULE WHERE Module_ID="'.$_SESSION['moduleID'].'"';  //$_SESSION['moduleID']
                     $result = mysqli_query($db, $query);
+
                     while ($row = mysqli_fetch_assoc($result)){
                       $moduleTitle = $row['Module_TITLE'];
                       $moduleDesc = $row['Module_DESCRIPTION'];
-                echo"
-                <p>".$moduleTitle."</p>
-             <br>";
-             echo"<h4> Module Description</h4>";
-                echo "<p>".$moduleDesc."</p>";
- 
+                    echo"<p>".$moduleTitle."</p><br>";
+                  echo"<h4> Module Description</h4>";
+                    echo "<p>".$moduleDesc."</p>";
               }
+
               echo"<h4>Lecture Material</h4>";
-              $query = 'SELECT * FROM MATERIAL WHERE Module_ID="'.$_SESSION['moduleID'].'"';
+              $query = 'SELECT * FROM MATERIAL WHERE Module_ID = "'.$_SESSION['moduleID'].'"';
                     $result = mysqli_query($db, $query);
                     $i = 1;
                     while ($row = mysqli_fetch_assoc($result)){
                       $materialTitle = $row['Material_TITLE'];
                       $materialLink = $row['File'];
-                    echo"
+                      $access = $row['Access_DATE'];     
+                    	echo"
                     <div class='modules-lect-button'>
-                    <a href='' data-toggle='modal' data-target='#LectureModal'  data-backdrop='static' data-keyboard='false'>".$i.". ".$materialTitle."</a>
+                    <a href='' data-toggle='modal' data-target='#LectureModal'  data-backdrop='static' data-keyboard='false'>".$i.".".$materialTitle." </a>
+                    <form action='cloud_delete.php' method='post'>
+                    <input name='del' type='hidden' value='".$materialTitle."'>
+                    <input type='submit' value='Delete'>
+                    </form>
                     </div>";
                     $i++;
-                    // ADD echo"<a href='cloud_delete.php?file=".$materialLink."><button>Delete</button></a>";
-             
+                    if($access > date("Y-m-d")){
+                    	echo "Set to be accessible from" . $access;
+                    }
               }
-                ?>
+              ?>
 
                 <h4>Other Material</h4>
                 <a href="lecturerFeedbackForm.php"><button class="btn-md">Module Feedback</button></a>
@@ -113,14 +145,10 @@ $_SESSION['moduleID'] = $moduleID;
         </div>
 
 
-
-
-
-
                 <!-- button for uplaod... it hides the upload button and iframe and it shows the upload form/window -->
-               <!-- <button class="btn-default btnUpload">Upload file</button> -->
+            <button class="btn-default btnUpload">Upload file</button>   
                <h3>Upload Lecture Material</h3>
-                <form action="cloud_upload.php" method="post" onsubmit="return Validate(this);">
+                <form action="cloud_upload.php" method="post" enctype= "multipart/form-data" onsubmit="return Validate(this)">
 
                   Enter a title:
                   <input type="text" name="title"><br>
@@ -128,13 +156,10 @@ $_SESSION['moduleID'] = $moduleID;
                   Make slides accessable from (optional):
                   <input type="date" min="2016-01-01" max="2050-01-01" name="access"><br>
                   Upload as:<br>
-                  <input type="radio" name="type" value="pdf" id="radio_button1"> Lecture slides(.pdf)<br>
-                  <input type="radio" name="type" value="zip" id="radio_button2"> Zip files(.zip)<br>
-                   <input type="radio" name="type" value="png" id="radio_button3"> Png files(.png)<br>
-                  <input type="radio" name="type" value="jpeg" id="radio_button4"> Jpeg files(.jpeg)<br>
-                  <input type="file" name="my file" value="pdf" id="element"><br>
+                  <input type="radio" name="type" value="pdf" id="radio_button1" > Lecture slides ( .pdf )<br>
+                  <input type="radio" name="type" value="oth" id="radio_button2"> Other material ( images, videos, .zip archives )<br>
+                  <input type="file" name="upload" id="element"><br>
                   <!-- If you are using the commented code for the validation remove the javascript code that changes the name of the tag above-->
-                   <!-- The accept value needs to depend on the radio button selected, or perhaps removed -->
                   <input type="submit" value="Upload">
                 </form>
 
@@ -142,10 +167,6 @@ $_SESSION['moduleID'] = $moduleID;
             </div>
 
             <!-- iframe that will be used for lectures display-->
-
-
-
-
 
 
             <!-- Modal -->
@@ -170,55 +191,72 @@ $_SESSION['moduleID'] = $moduleID;
               <iframe src=".$file." width='80%;' height='350px;'></iframe>
           </div>";
         }
-        ?>
+        
+          echo "
+            <div class='col-sm-6 '>
+              <div class='panel panel-default lectureComments'>
+                 <div class='panel-heading'>Comments</div>
+                 <div class='panel-body'>";
+                  $query = 'SELECT * FROM MATERIAL_COMMENTS WHERE Module_ID="'.$_SESSION['moduleID'].'"';
+                  $result = mysqli_query($db, $query);
+                  while ($row = mysqli_fetch_assoc($result)){
+                  $comment = $row["Comment"];
+                  $user = $row["User_ID"];
+                    echo "
+                     <div class='media'>
+                      <div class='media-left'>
+                          <span class='media-object'><b>".$user."</b></span>
+                      </div>
+                      <div class='media-body'>
+                        <p>".$comment."</p>
+                      </div>
+                    </div>";
+                  }
+                    ?>
+                    <div id="formCommentsBox">
+                     <form id="formComments" action="comments.php" method="post" onSubmit="commentalert()">
+                         <input type="text" name="comment" placeholder="Enter comment">
+                         <button type="submit">Make Comment</button>
+                     </form>
+                   </div>
+
+                </div>
+              </div>
+            </div>
+
+            <div class="col-sm-6 ">
+              <div class="panel panel-default lectureNotes">
+                  <div class="panel-heading">Personal Notes</div>
+                  <div class="panel-body">
+
+                      <div ng-app="">
+                        <label>Write your personal notes:</label>
+                        <p><textarea type="text" class="textnotes" rows="3" ng-model="name"></textarea>
+                        <button type="submit" class="btn btn-sm">Send</button>
+                        <div ng-bind="name"></div>
+
+                      </div>
+                  </div>
+              </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <script type="text/javascript">
+function commentalert(){
+  alert("Your comment has been posted!");
+}
+</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
     <script>
     </script>
-
-
-
-
-
-
-
-            <!-- upload container which is shown only when upload button is clicked and hidden when a file has been uploaded or
-or the operation has been cancelled -->
-            <!--<div class="col-sm-8 toUpload" style="display:none;">
-                <div class="well">
-                    <p>Browse files to upload</p>
-                    <div class="fileUpload">
-                        <table width="100%">
-                            <thead>
-                                <th width="70%">File name</th>
-                                <th width="20%">Date</th>
-                                <th width="10%">Type</th>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Name.ext</td>
-                                    <td>20/03/2001</td>
-                                    <td>text</td>
-                                </tr>
-                                <tr>
-                                    <td>Name.ext</td>
-                                    <td>20/03/2001</td>
-                                    <td>text</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <form class="form-inline formInlineMargin" role="form">
-                          <div class="form-group formInlineUp">
-                            <label for="email">File name:</label>
-                            <input type="text" class="form-control" id="fileName">
-                          </div>
-                          <button type="submit" class="btn btn-default hideUpload">Upload</button>
-                          <button type="button" class="btn btn-default hideUpload">Cancel</button>
-                        </form>
-                    </div>
-                </div>
-            </div>-->
 
 
         </div>
