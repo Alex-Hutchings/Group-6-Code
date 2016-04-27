@@ -90,24 +90,25 @@ $_SESSION['moduleID'] = $moduleID;
                 echo "<p>".$moduleDesc."</p>";
               }
               echo"<h4>Lecture Material</h4>";
-              $query = 'SELECT * FROM MATERIAL WHERE Module_ID="'.$_SESSION['moduleID'].'"';
+              $query = 'SELECT * FROM MATERIAL WHERE Module_ID = "'.$_SESSION['moduleID'].'"';
                     $result = mysqli_query($db, $query);
                     $i = 1;
                     while ($row = mysqli_fetch_assoc($result)){
                       $materialTitle = $row['Material_TITLE'];
                       $materialLink = $row['File'];
+                      $access = $row['Access_DATE'];
                       $Material_ID = $row['Material_ID'];
-                    echo"
+                    if($access >= date("Y-m-d")){
+                      echo"
                     <div class='modules-lect-button'>
                     <a href='material.php?matID=".$Material_ID."'>".$i.". ".$materialTitle."</a>
                     </div>";
                     $i++;
-                    $_SESSION['material'] = $Material_ID;
+                    }
               }
-                ?>
+              ?>
 
                 <h4>Other Material</h4>
-                <a href="moduleFeedbackForm.php"><button class="btn-md">Module Feedback</button></a>
                    <input hidden type='text' id='moduleID' name='moduleID' value= <?php $moduleID ?>>
 
                 <h4>Module Feedback</h4>
@@ -119,7 +120,7 @@ $_SESSION['moduleID'] = $moduleID;
         <div class="col-md-5">
             <div class="well">
                 <div class="panel panel-default">
-                  <div class="panel-heading"><span data-toggle="modal" data-target="#FAQModal"  data-backdrop="static" data-keyboard="false">FAQ</span><span class="glyphicon glyphicon-open glypbuttons" data-toggle="modal" data-target="#FAQModal"  data-backdrop="static" data-keyboard="false"></span><span class="glyphicon glyphicon-menu-up glypbuttons FAQpanelhead"></span></div>
+                  <div class="panel-heading"><span data-toggle="modal" data-target="#FAQModal"  data-backdrop="static" data-keyboard="false">FAQ</span><span class="glyphicon glyphicon-menu-up glypbuttons FAQpanelhead"></span></div>
                   <div class="panel-body FAQpanelbody"  data-toggle="modal" data-target="#FAQModal"  data-backdrop="static" data-keyboard="false" style="display:none;">
                     <?php
                     $query = 'SELECT * FROM FAQ WHERE Module_ID= "'.$_SESSION['moduleID'].'"';

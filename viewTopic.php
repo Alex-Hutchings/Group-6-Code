@@ -87,6 +87,7 @@ else{
   <link rel="stylesheet" media="screen" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="formValidation.js"></script>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -117,7 +118,6 @@ else{
         <!-- Had to turn the "button" below into an anchor (a), otherwise it won't be a link (unless I use JS, which I'd rather avoid). However, this seems to have broken the layout as it no longer appears as a button. - Nathan -->
         <a class="btn btn-xs" id="back" href=<?php echo "\"listing.php?mID=".$moduleID."\""; ?> >Back</a> 
         <span id='topic'>Forum - <?php echo $moduleName; ?></span>
-        <button type="button" class="btn btn-xs" id="edit">Edit</button><br><br>
 
 <p id="demo">User <?php echo "<b>$posterName</b> ($posterUID) posts: <i>\"$postSubject\"</i> ($postDate) "; ?> </p>
     <div class="responsebody">
@@ -181,7 +181,7 @@ else{
         <textarea id="noise" name="reply" class="widgEditor nothing" cols="80" rows="3" placeholder="Enter your reply..."></textarea>
       </fieldset>
       <fieldset class="submit">
-        <input id="submitAns" type="submit" value="Submit" class="answerQ" name="submitPost"/>
+        <input id="submitAns" type="submit" value="Submit" class="answerQ" onclick="emptyForumValidation(this)" name="submitPost"/>
         <input type="button" value="Cancel" class="answerQ">
       </fieldset>
     </form>
