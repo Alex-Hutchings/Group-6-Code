@@ -5,20 +5,33 @@
 /**
  * Group 6
  * 2016 Intelekt.
+ * Used Google libabries are licensed under the Apache License, Version 2.0
+ * and are Copyright 2016 Google Inc.
+ */
+ 
+/** 
+ * Required libraries/files on server:
+ * 		- google/appengine-php-sdk v-1.9,
+ * 		- google/apiclient v-2.0.0@RC
+ *		- .json file containing authentication key
  *
+ * Prefered installation tools:
+ *      - Composer
  */
 
 /**
  * The "cloud_delete" implements the file upload functionality:
- * 		-Deletes the file from Google Cloud Storage(GCS) bucket
- * 		-Deletes a link of the bucket from the database
+ * 		- Deletes the file from Google Cloud Storage(GCS) bucket
+ * 		- Deletes a link of the bucket from the database
  * 
  * Issues to be resolved in the future:
- *		-Authenticate the application on schools server
+ *		- Authenticate the application on schools server to test it
+ *		there
  *	
  * Future extentions:
- *      -Improve the consistency of the code
- *		-Function that removes records from the database if the file is deleted from the GCS console
+ *      - Improve the consistency of the code
+ *		- Function that removes records from the database if the
+ *		 file is deleted from the GCS console
  */
 
 session_start();
@@ -42,12 +55,15 @@ if(isset($_POST['del'])){
 }
 
 if($error == False){
+
 	/**
 	 * Connect to Google Cloud Storage API
 	 */
 	$client = new Google_Client();
 	$client->setApplicationName("Intellekt");
 	$client->setAccessType("offline");
+
+	// Authenticates with the key inside .json file
 	$client->setAuthConfig('Intellekt-12aebbba5d44.json');
 	$client->addScope(Google_Service_Storage::DEVSTORAGE_FULL_CONTROL);
 

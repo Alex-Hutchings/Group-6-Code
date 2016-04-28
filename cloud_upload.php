@@ -6,7 +6,18 @@
 /**
  * Group 6
  * 2016 Intelekt.
+ * Used Google libabries are licensed under the Apache License, Version 2.0
+ * and are Copyright 2016 Google Inc.
+ */
+ 
+/** 
+ * Required libraries/files on server:
+ * 		- google/appengine-php-sdk v-1.9,
+ * 		- google/apiclient v-2.0.0@RC
+ *		- .json file containing authentication key
  *
+ * Prefered installation tools:
+ *      - Composer
  */
 
 /**
@@ -15,11 +26,13 @@
  * 		-Inserts a link to the bucket into the database
  * 
  * Issues to be resolved in the future:
- *		-Authenticate the application on schools server
+ *		-Authenticate the application on schools server to test it
+ *		there
  *	
  * Future extentions:
  *      -Improve the consistency of the code
- * 		-Change the implementation to update the existing file with the same name
+ * 		-Change the implementation to update the existing file with
+ *		the same name
  *  	-Improved error checking
  */
 
@@ -113,6 +126,8 @@ if($error == False){
 			$client = new Google_Client();
 			$client->setApplicationName("Intellekt");
 			$client->setAccessType("offline");
+
+			// Authenticates with the key inside .json file
 			$client->setAuthConfig('Intellekt-12aebbba5d44.json');
 			$client->addScope(Google_Service_Storage::DEVSTORAGE_FULL_CONTROL);
 
