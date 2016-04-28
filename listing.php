@@ -3,6 +3,9 @@
   // ND.
   // Start/continue the session.
   session_start();
+  if(!isset($_SESSION['username'])){
+  header("location:login.php");
+}
   $moduleID = $_SESSION['moduleID'];
   include_once("config.php");
   if($_SESSION['lecturer'] == true) {
@@ -60,7 +63,11 @@ else{
 	<style type="text/css" media="all">
   @import "forumCSS/widgEditor.css";
 </style>
-
+<link href='masterStyle.css' rel='stylesheet'>
+        <!-- Bootstrap -->
+    <link rel='stylesheet' media='screen' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css'>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/js/bootstrap.min.js'></script>
 </head>
 
 <body>

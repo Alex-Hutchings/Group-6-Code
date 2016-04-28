@@ -39,6 +39,9 @@
 </script>
 <?php
 session_start();
+if(!isset($_SESSION['username'])){
+  header("location:login.php");
+}
 include_once('config.php');
 include_once('lectMenu.php');
 

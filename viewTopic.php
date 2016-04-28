@@ -3,6 +3,9 @@
   // ND.
   // Start/continue the session.
   session_start();
+  if(!isset($_SESSION['username'])){
+  header("location:login.php");
+}
   $moduleID = $_SESSION['moduleID'];
   include_once("config.php");
   if($_SESSION['lecturer'] == true) {
