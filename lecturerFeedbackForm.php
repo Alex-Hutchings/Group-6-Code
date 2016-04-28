@@ -1,3 +1,20 @@
+<?php
+/*
+ * Group 6
+ * 2016 Intelekt.
+ *
+ */
+
+/**
+ * The "lecturerFeedback form" implements the feedback for the lecturers:
+ *    -View feedback from students feedback on modules
+ * 
+ * Future extentions:
+ *    -Improve the coding style - looks bad and is very inefficient atm
+ *    -Update feedback form so that lecturers can add graphs and analyse the results in a professional manner
+ *    -Integrate JPGraph functionality to allow 3d and 2d charts to be added to the form
+ */
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,7 +37,6 @@
 
 <script>
 </script>
-<!--creates the navbar and its relevant links -->
 <?php
 session_start();
 include_once('config.php');

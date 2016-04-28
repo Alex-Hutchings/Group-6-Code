@@ -1,5 +1,21 @@
 <!DOCTYPE html>
-<?php session_start();
+<?php 
+/*
+ * Group 6
+ * 2016 Intelekt.
+ * The "module feedback" implements the feedback form to fill out for each module for students:
+ * module feedback for students to complete
+ * An array of questions that give opportunity to give feedback
+ * Available for every module the student takes part in
+ * moves away from current paper model 
+
+ * Issues to be resolved in the future:
+ *    Add more questions? 
+ *    Change the layout to fit the system
+ *    Add questions to the database so that they can be made available once the lecturer is ready
+ *    Use a while loop to replicate the questions (make code more elegant)
+ */
+session_start();
 include_once("menu.php") ; //creates menu on the page
 ?>
 <html lang="en">
@@ -11,8 +27,12 @@ include_once("menu.php") ; //creates menu on the page
     <title>Module Feedback</title>
 
     <!--  -->
-
     <link rel="stylesheet" href="style.css">
+    <link href="masterStyle.css" rel="stylesheet">
+        <!-- Bootstrap -->
+    <link rel="stylesheet" media="screen" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
 </head>
 

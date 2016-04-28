@@ -34,11 +34,12 @@ if(isset($_SESSION['id'])){
 $update = $_SESSION['id'];
 }
 // sql command to update a record
-$sql = 'UPDATE LECTURER SET Lecturer_ID="'.$lid.'", Lecturer_NAME= "'.$name.'", Office= "'.$office.'" WHERE Lecturer_ID='. $update ;
+$sql = 'UPDATE LECTURER SET Lecturer_NAME= "'.$name.'", Office= "'.$office.'" WHERE Lecturer_ID='. $update ;
 
 
 if ($db->query($sql) === TRUE) {
 $message = "Record updated successfully"; echo $message;
+header("location:lecturerMenu.html");
 } else {
 echo "Error updating record: " . $db->error;
 } $db->close();

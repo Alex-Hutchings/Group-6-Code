@@ -1,8 +1,20 @@
 <!DOCTYPE html>
 <?php
-//This script adds an FAQ to the system from the lecturer page
-//Only lecturers are able to do this
-//The question and answer are posted from the modulesLecturer.php page and submitted into the database
+/*
+ * Group 6
+ * 2016 Intelekt. 
+
+ * The "FAQ add" implements the addition of the frequently asked questions functioanlity:
+ *    -add a question
+ *    -add an answer
+ * 
+ * Issues to be resolved in the future:
+ *    -Change the position of the container
+ *
+ * Future extentions:
+ *    -Add an edit feature for the FAQs
+ *    -Delete FAQ feature
+ */
 session_start();
 include_once("config.php");
 $question = $_POST['question'];

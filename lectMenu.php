@@ -1,7 +1,19 @@
 <?php
-// This code is the systems navigation bar.
-// It is specific to the lecturer users navigation with the links going to 
-// their own pages that they can upload material too rather than the students view.
+/*
+ * Group 6
+ * 2016 Intelekt.
+ * The "lectMenu" implements the menu and navigation system for the lecturer users:
+ * Specific lecturer modules
+ * Different style and layout of the module specific pages
+ * 
+ * Issues to be resolved in the future:
+ *    -Back button going back to the last page in the history can be frustrating for a user
+ *
+ * Future extentions:
+ * Make the code look more elegant
+ * Improve layout of code
+ * Change the back button to an actual Module button that takes users back to the module they are currently browsing
+ */
 echo "<link rel='stylesheet' href='style.css'>";
 if(basename($_SERVER['REQUEST_URI'], '?' . $_SERVER['QUERY_STRING']) == 'modulesLecturer.php')
   $moduleID = $_GET['id'];

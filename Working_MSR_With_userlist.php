@@ -1,4 +1,19 @@
 <!doctype html>
+<?php
+/*
+ * Group 6
+ * 2016 Intelekt.
+ * The "summary page" implements the summary page for each module so that users can:
+ *  add their own notes to the page - assisting the learning of other students
+ *  Links and pictures can be uploaded 
+ *  Gives more students well read about certain topics to help other students
+ *  real time collaborative editing
+
+ * Issues to be resolved in the future:
+ *    Change user list to replicate student ids that will help monitoring the system
+ *   
+ */
+?>
 <!-- See http://www.firepad.io/docs/ for detailed embedding docs. -->
 <html>
 <?php

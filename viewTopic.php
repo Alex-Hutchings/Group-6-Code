@@ -77,9 +77,13 @@ else{
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="forums.css">
+     <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/x-icon" href="icon.ico"/>
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>Intellekt Forum - <?php echo "$moduleName - \"$postSubject\""?></title>
-
+    <link href="masterStyle.css" rel="stylesheet">
 <style type="text/css" media="all">
   @import "forumCSS/widgEditor.css";
 </style>

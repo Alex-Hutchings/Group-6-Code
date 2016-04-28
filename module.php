@@ -13,7 +13,7 @@ include_once("config.php"); //calls the config file which connects to the databa
     <!--  -->
 
     <link rel="stylesheet" href="style.css">
-
+    <link href="masterStyle.css" rel="stylesheet">
 </head>
 
 <body>

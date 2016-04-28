@@ -1,5 +1,19 @@
 <!DOCTYPE html>
-<?php session_start();
+<?php 
+/*
+ * Group 6
+ * 2016 Intelekt.
+ * The "module feedback" implements the feedback form to fill out for each module for students:
+ * module feedback for students to complete
+ * An array of questions that give opportunity to give feedback
+ * Available for every module the student takes part in
+ * moves away from current paper model 
+
+ * Issues to be resolved in the future:
+ *    Add more questions? 
+ * 	  Change the layout to fit the system
+ */
+session_start();
 
 include_once("config.php");
 date_default_timezone_set('UTC');

@@ -13,6 +13,10 @@ include_once("config.php"); //calls the config file which connects to the databa
     <!--  -->
 
     <link rel="stylesheet" href="style.css">
+    <link href="masterStyle.css" rel="stylesheet">
+    <link rel="stylesheet" media="screen" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
 </head>
 
@@ -24,7 +28,6 @@ include_once("config.php"); //calls the config file which connects to the databa
     <script>
     </script>
 <?php
-
 //checks to see if the username has been set
 //if username is set then the user variable is set to the be posted username variable from the login form
 //if(isset($_SESSION['username']))
@@ -60,7 +63,6 @@ include_once("config.php"); //calls the config file which connects to the databa
         </nav>
     </div>";
 //$_SESSION['username']
-
 $update = null;
 //query retrieves the module id from student takes module where the student id is the same as the value stored for username in the post array.
 //this checks if a student takes a certain module, and only retrieves the modules that the student is enrolled on.
@@ -79,7 +81,6 @@ echo"<div class='row'>
 </div>";
 }//Sends hidden data to the next form so that the module ID can be collected and used as the page contents
 //}
-
 ?>
 </body>
 </div>

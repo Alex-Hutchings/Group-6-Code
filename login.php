@@ -59,6 +59,7 @@ echo "<script> alert('Wrong username or password')</script>";
     <title>Welcome To Intellekt</title>
 
     <!-- Bootstrap -->
+    <link href='masterStyle.css' rel='stylesheet'>
     <link href="css/bootstrap.min.css" rel="stylesheet">
   </head>
 

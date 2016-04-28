@@ -5,10 +5,7 @@
 </head>
 <body>
 <?php
-include_once("config.php");
-if(isset($_POST['sid'])){
-$sid = $_POST['sid'];
-}
+
 
 if(isset($_POST['name'])){
 $name = $_POST['name'];
@@ -22,10 +19,15 @@ if(isset($_POST['year'])){
 $year = $_POST['year'];
 }
 
-if(isset($_POST['cid'])){
-$cid = $_POST['cid'];
-}
 
+$server = "csmysql.cs.cf.ac.uk";
+$user = "group6.2015"; 
+$password = "bhF54FWzyq"; 
+$database = "group6_2015";
+$db = mysqli_connect($server,$user,$password,$database); 
+if( $db === FALSE ){
+header( "Location: error.html" ); die();
+}
 $update = null;
 
 if ($db->connect_error) {
@@ -34,11 +36,12 @@ if(isset($_SESSION['id'])){
 $update = $_SESSION['id'];
 }
 // sql command to update a record
-$sql = 'UPDATE STUDENT SET Student_ID="'.$sid.'", Student_NAME= "'.$name.'", Address= "'.$address.'", Study_YEAR= "'.$year.'", Course_ID= "'.$cid.'" WHERE Student_ID='. $update ;
+$sql = 'UPDATE STUDENT SET Student_NAME= "'.$name.'", Address= "'.$address.'", Study_YEAR= "'.$year.'" WHERE Student_ID='. $update ;
 
 
 if ($db->query($sql) === TRUE) {
 $message = "Record updated successfully"; echo $message;
+header("location:studentMenu.html");
 } else {
 echo "Error updating record: " . $db->error;
 } $db->close();
