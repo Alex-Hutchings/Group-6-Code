@@ -1,7 +1,6 @@
 <?php session_start();
 include_once("config.php");
 include_once("menu.php");
-
 $query = "SELECT * FROM MATERIAL WHERE Material_ID = '".$_GET['matID']."'";
 $checkMaterialID = mysqli_query($db, $query);
 if(mysqli_num_rows($checkMaterialID) <= 0){
@@ -53,7 +52,6 @@ if(mysqli_num_rows($checkMaterialID) <= 0){
            // $(this).toggleClass('glyphicon-menu-up').toggleClass('glyphicon-menu-down');
         });
     });
-
     $(document).ready(function(){
         $(".Deadlinepanelhead").click(function(){
             $(".Deadlinepanelbody").toggle();
@@ -116,7 +114,6 @@ $_SESSION['username'] = $_SESSION['username'];
 else{
   $_SESSION['moduleID'] = $moduleID;
 }
-
 $_SESSION['moduleID'] = $moduleID;*/
 ?>
 

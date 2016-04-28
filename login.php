@@ -61,6 +61,9 @@ echo "<script> alert('Wrong username or password')</script>";
     <!-- Bootstrap -->
     <link href='masterStyle.css' rel='stylesheet'>
     <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel='stylesheet' media='screen' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css'>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/js/bootstrap.min.js'></script>
   </head>
 
 
