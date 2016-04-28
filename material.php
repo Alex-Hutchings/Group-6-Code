@@ -1,10 +1,30 @@
 <?php session_start();
+/*
+ * Group 6
+ * 2016 Intelekt.
+ *
+ */
+
+/**
+ * The "material form" implements the module specific material for each content object uploaded:
+ *    -View module specific material on the page
+ *    -Comment about the material
+ *    -Write personal notes about the material that are stored on a firepad text editor
+ * Future extentions:
+ *    -Improve the layout of the page
+ *    -Add more functionality to the comments - upvoting and downvoting (stack overflow standard)
+ *    -Add videos of the lectures possibly to accompany the material.
+ */
 include_once("config.php");
 include_once("menu.php");
 $query = "SELECT * FROM MATERIAL WHERE Material_ID = '".$_GET['matID']."'";
 $checkMaterialID = mysqli_query($db, $query);
 if(mysqli_num_rows($checkMaterialID) <= 0){
     header('location: error.html');}
+
+if(!isset($_SESSION['username'])){
+  header("location:login.php");
+}
 ?>
 
 <!DOCTYPE html>
