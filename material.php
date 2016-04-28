@@ -29,12 +29,16 @@ if(mysqli_num_rows($checkMaterialID) <= 0){
       /* Height / width / positioning can be customized for your use case.
          For demo purposes, we make firepad fill the entire browser. */
     #firepad-container {
-      width: 50%;
-      height: 50%;
-      position: absolute;
+      width: 648px;
+      height: 374px ;
+      position: fixed;
       left: 50%;
       top: 70%;
       z-index: 100;
+      background: white;
+      -moz-box-shadow: 0 5px 25px #333;
+      -webkit-box-shadow: 0 5px 25px #333;
+      box-shadow: 0 5px 25px #333;
     }
   </style>
     <meta charset="utf-8">
@@ -162,11 +166,6 @@ $_SESSION['moduleID'] = $moduleID;*/
                 </div>
               </div>
             </div>
-
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </div>
-      </div>
 
     </div>
   </div>
