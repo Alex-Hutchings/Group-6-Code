@@ -8,6 +8,7 @@ require_once __DIR__.'/vendor/autoload.php';
 
 //session
 $id = $_SESSION['moduleID'];
+$back = "modulesLecturer.php?id=".$id;
 $module = $id."/";
 $uploader = $_SESSION["username"];
 $title = $_POST["del"];
@@ -53,20 +54,13 @@ $link = "https://storage.googleapis.com/intellekt_file_storage/".$module.$title;
 $sql = "DELETE FROM MATERIAL WHERE File = '".$link."'" ;
 
 if ($db->query($sql) === TRUE) {
-	$message = "Record added successfully"; echo $message;
-} else {
-	echo "Error updating record: " . $db->error;
+	echo "File deleted successfully!<br>";
+	echo"<a href='".$back."'>Back to module</a> ";
+}else{
+	echo "Error while deleting a record: " . $db->error;
 } 
-
 $db->close();
-
-echo "
-<p>Done</p>
-
-<a href='modulesLecturer.php?id='".$id."'>Refresh</a>
-"
 ?>
-<p>Done</p>
 </body>
 </html>
 
