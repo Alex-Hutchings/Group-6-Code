@@ -1,4 +1,23 @@
 <?php session_start();
+/*
+ * Group 6
+ * 2016 Intelekt.
+ *
+ */
+
+/**
+ * The "module-1 form" implements the module specific page for students:
+ *    -View module specific material on the page
+ *    -Access material 
+ *    -Access modular specific buttons - Question forums and module summary page
+ *    - Access module feedback
+ *    -View deadlines, FAQ and lecturers on the module
+ * Future extentions:
+ *    -Improve the layout of the page
+ *    -Add more functionality e.g. dynamic deadline material that constantly updates
+ *    -Add ability for display lecturers to display every lecture enrolled on that module
+ *    -Add timetabled slots for each module activity . ie. lectures, labs and tutorials
+ */
 include_once("config.php");
 include_once("menu.php");
 if($_SESSION['lecturer'] == true) {
@@ -8,7 +27,9 @@ if($_SESSION['lecturer'] == true) {
     $query = 'SELECT * FROM STUDENT_TAKES_MODULE WHERE Student_ID="'.$_SESSION["username"].'"';
     include_once("menu.php");
 }
-
+if(!isset($_SESSION['username'])){
+  header("location:login.php");
+}
 if(isset($moduleID)){
   $query = "SELECT * FROM MODULE WHERE Module_ID = '".$_GET['id']."'";
   $checkModuleID = mysqli_query($db, $query);
@@ -38,7 +59,7 @@ $_SESSION['moduleID'] = $moduleID;
     $(document).ready(function(){
         $(".FAQpanelhead").click(function(){
             $(".FAQpanelbody").toggle();
-           // $(this).toggleClass('glyphicon-menu-up').toggleClass('glyphicon-menu-down');
+           $(this).toggleClass('glyphicon-menu-up').toggleClass('glyphicon-menu-down');
         });
     });
 

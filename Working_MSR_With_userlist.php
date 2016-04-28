@@ -18,6 +18,9 @@
 <html>
 <?php
 session_start();
+if(!isset($_SESSION['username'])){
+  header("location:login.php");
+}
 $moduleID = $_SESSION['moduleID'];
 $mid = $_SESSION['moduleID'];
 $sid = $_SESSION['username'];

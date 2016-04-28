@@ -16,6 +16,9 @@
  *    Use a while loop to replicate the questions (make code more elegant)
  */
 session_start();
+if(!isset($_SESSION['username'])){
+  header("location:login.php");
+}
 include_once("menu.php") ; //creates menu on the page
 ?>
 <html lang="en">

@@ -1,6 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
-<?php session_start();
+<?php
+/*
+ * Group 6
+ * 2016 Intelekt.
+ *
+ */
+
+/**
+ * The "modules form" implements the selection of modules for students:
+ *    -Only modules that students are registered on can be accessed
+ *    - Module code and titles are displayed
+ * Future extentions:
+ *    -Change the style to not include the gap between modules
+ *    -Include the menu into the menu.php file rather than hardcode it here
+ */ 
+session_start();
 include_once("config.php"); //calls the config file which connects to the database
 ?>
 <head>
@@ -24,6 +39,9 @@ include_once("config.php"); //calls the config file which connects to the databa
     <script>
     </script>
 <?php
+if(!isset($_SESSION['username'])){
+  header("location:login.php");
+}
 //checks to see if the username has been set
 //if username is set then the user variable is set to the be posted username variable from the login form
 if(isset($_SESSION['username']))
