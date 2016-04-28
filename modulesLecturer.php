@@ -69,7 +69,7 @@ include_once("lectMenu.php");
               $('#element').attr('accept', 'application/pdf');
              }
             if($('#radio_button2').is(':checked')) {
-              $('#element').attr('accept', 'image/* , application/pdf ,  application/msword , application/vnd.ms-excel , application/vnd.ms-powerpoint');
+              $('#element').attr('accept', 'image/* , application/pdf');
 
             }
           });
@@ -194,7 +194,7 @@ $_SESSION['moduleID'] = $moduleID;
               <input type='date' min='".date("Y-m-d")."' value='".date("Y-m-d")."' max='2050-01-01' name='access'><br>"?>
               Upload as:<br>
                     <input type="radio" name="type" value="pdf" id="radio_button1" checked="checked" > Lecture slides ( .pdf only)<br>
-                    <input type="radio" name="type" value="oth" id="radio_button2"> Other material ( images, .xls, .doc, .ppt )<br>
+                    <input type="radio" name="type" value="oth" id="radio_button2"> Other material ( images, .pdf )<br>
                     <input type="file" name="upload" id="element"><br>
                     <input type="submit" value='Upload'>
                 </form>
