@@ -16,10 +16,11 @@
  *		-Student comments are displayed in an annoying manner
  *
  * Future extentions:
+ *    -Improve the consistency of the code
  * 		-Update material functionality
  *  	-Manage module information
  *  	-Allow video and achive type files to be uploaded
- *		-Implement set assignments functionality 
+ *		-Implement set assignments functionality
  */
 
 session_start();
@@ -208,25 +209,33 @@ else{
 			        /* 
            			 * Retrieves and displays lecture slides and other material inside iframe
            			 */ 
-			        $materialQuery = 'SELECT * FROM MATERIAL WHERE Module_ID="'.$_SESSION['moduleID'].'"';
+			        $materialQuery = 'SELECT * FROM MATERIAL WHERE Module_ID="'.$_SESSION['moduleID'].'"  AND Material_TYPE = "pdf"';
 			        $result = mysqli_query($db, $materialQuery);
 
 			        while ($row = mysqli_fetch_assoc($result)){
-				        $materialTitle = $row['Material_TITLE'];
-				        $file = $row['File'];
-				        $mime = $row['Material_TYPE'];
-				        $_SESSION['materialID'] = $row['Material_ID'];
+				          $materialTitle = $row['Material_TITLE'];
+				          $file = $row['File'];
+				          $_SESSION['materialID'] = $row['Material_ID'];
 				        
-				        echo "<div class='modal-body'>
-				        <h4 class='modal-title'> ".$materialTitle." </h4>";
-				        
-				        if ($mime == 'pdf') {
-				        	echo "<div><iframe src=".$file." width='80%;' height='350px;'></iframe></div>";
-				        }else{
-				        	echo "<div><img src=".$file." height='350px' width='80%'></div>";
-			        	}
+				          echo "<div class='modal-body'>
+				          <h4 class='modal-title'> ".$materialTitle." </h4>";
+				          echo "<div><iframe src=".$file." width='80%;' height='350px;'></iframe></div>";
 			        }
-			        echo "
+
+              $materialQuery = 'SELECT * FROM MATERIAL WHERE Module_ID="'.$_SESSION['moduleID'].'"  AND Material_TYPE = "oth"';
+              $result = mysqli_query($db, $materialQuery);
+
+              while ($row = mysqli_fetch_assoc($result)){
+                  $materialTitle = $row['Material_TITLE'];
+                  $file = $row['File'];
+                  $_SESSION['materialID'] = $row['Material_ID'];
+                
+                  echo "<div class='modal-body'>
+                  <h4 class='modal-title'> ".$materialTitle." </h4>";
+                  echo "<div><img src=".$file." height='350px' width='80%'></div>";
+			        }
+              
+              echo "
 			        <div class='col-sm-6 '>
 			            <div class='panel panel-default lectureComments'>
 			                <div class='panel-heading'>Comments</div>
