@@ -1,4 +1,8 @@
-<?php session_start();
+
+
+<?php 
+//add description and required api's to run 
+session_start();
 include_once("config.php");
 include_once("lectMenu.php");
 ?>
@@ -33,7 +37,6 @@ include_once("lectMenu.php");
           $('#element').click(function() {
             if($('#radio_button1').is(':checked')) {
               $('#element').attr('accept', 'application/pdf');
-
              }
             if($('#radio_button2').is(':checked')) {
               $('#element').attr('accept', 'image/* , application/pdf ,  application/msword , application/vnd.ms-excel , application/vnd.ms-powerpoint');
@@ -167,16 +170,18 @@ $_SESSION['moduleID'] = $moduleID;
         $materialQuery = 'SELECT * FROM MATERIAL WHERE Module_ID="'.$_SESSION['moduleID'].'"';
         $result = mysqli_query($db, $materialQuery);
         while ($row = mysqli_fetch_assoc($result)){
-        $materialTitle = $row['Material_TITLE'];
-        $file = $row['File'];
-        $_SESSION['materialID'] = $row['Material_ID'];
-        echo "<div class='modal-body'>
-       <h4 class='modal-title'> ".$materialTitle." </h4>
-          <div>
-              <iframe src=".$file." width='80%;' height='350px;'></iframe>
-          </div>";
+	        $materialTitle = $row['Material_TITLE'];
+	        $file = $row['File'];
+	        $mime = $row['Material_TYPE'];
+	        $_SESSION['materialID'] = $row['Material_ID'];
+	        echo "<div class='modal-body'>
+	        <h4 class='modal-title'> ".$materialTitle." </h4>";
+	        if ($mime == 'pdf') {
+	        	echo "<div><iframe src=".$file." width='80%;' height='350px;'></iframe></div>";
+	        }else{
+	        echo "<div><img src=".$file." height='350px' width='80%'></div>";
+        	}
         }
-        
           echo "
             <div class='col-sm-6 '>
               <div class='panel panel-default lectureComments'>
