@@ -90,26 +90,44 @@ $_SESSION['moduleID'] = $moduleID;
                 echo "<p>".$moduleDesc."</p>";
               }
               echo"<h4>Lecture Material</h4>";
-              $query = 'SELECT * FROM MATERIAL WHERE Module_ID = "'.$_SESSION['moduleID'].'"';
+              $query = 'SELECT * FROM MATERIAL WHERE Module_ID = "'.$_SESSION['moduleID'].'" AND Material_TYPE = "pdf"';
                     $result = mysqli_query($db, $query);
                     $i = 1;
                     while ($row = mysqli_fetch_assoc($result)){
                       $materialTitle = $row['Material_TITLE'];
                       $materialLink = $row['File'];
                       $access = $row['Access_DATE'];
-                      $Material_ID = $row['Material_ID'];
-                    if($access >= date("Y-m-d")){
+                      $Material_ID = $row['Material_ID'];     
                       echo"
                     <div class='modules-lect-button'>
-                    <a href='material.php?matID=".$Material_ID."'>".$i.". ".$materialTitle."</a>
+                     <a href='material.php?matID=".$Material_ID."'>".$i.". ".$materialTitle."</a>
                     </div>";
                     $i++;
+                    if($access > date("Y-m-d")){
+                      echo "Set to be accessible from " . $access;
                     }
               }
               ?>
 
                 <h4>Other Material</h4>
-                   <input hidden type='text' id='moduleID' name='moduleID' value= <?php $moduleID ?>>
+                <?php 
+                $query = 'SELECT * FROM MATERIAL WHERE Module_ID = "'.$_SESSION['moduleID'].'" AND Material_TYPE = "oth"';
+                    $result = mysqli_query($db, $query);
+                    $i = 1;
+                    while ($row = mysqli_fetch_assoc($result)){
+                      $materialTitle = $row['Material_TITLE'];
+                      $materialLink = $row['File'];
+                      $access = $row['Access_DATE'];
+                      $Material_ID = $row['Material_ID'];      
+                      echo"
+                    <div class='modules-lect-button'>
+                    <a href='material.php?matID=".$Material_ID."'>".$i.". ".$materialTitle."</a>
+                    </div>";
+                    $i++;
+                    if($access > date("Y-m-d")){
+                      echo "Set to be accessible from " . $access;
+                    }
+              }?>
 
                 <h4>Module Feedback</h4>
                 <a href="moduleFeedbackForm.php"><button class="btn-md">Module Feedback</button></a>
