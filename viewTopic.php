@@ -146,7 +146,8 @@ else{
               FROM USER, REPLY 
               WHERE USER.User_ID = REPLY.User_ID 
               AND REPLY.Module_ID = '$moduleID'
-              AND REPLY.Topic_ID = $postID";
+              AND REPLY.Topic_ID = $postID
+              ORDER BY REPLY.Reply_DATE ASC";
 
     if ($result = mysqli_query($db, $query)) {
       while ($row = mysqli_fetch_assoc($result)) {
