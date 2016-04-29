@@ -45,9 +45,9 @@ if (isset($_GET['pID'])) {
 if(mysqli_num_rows($checkPostID) > 0){
   $postID = $_GET['pID'];
 }
-else{
-  header('location: error.html');
-}
+// else{
+//   header('location: error.html');
+// }
 }
 
   $query = "SELECT MODULE.Module_ID, MODULE.Module_TITLE, USER.Forename, USER.Surname, TOPIC.* 
