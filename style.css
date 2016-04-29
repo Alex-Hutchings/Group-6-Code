@@ -1,39 +1,6 @@
-/**/
-/*Master style css - all the css files that are not from a widget are collected here*/
 body {
     background-image: url("Background.png");
     background-repeat: repeat-x;
-}
-
-/*navbar style*/
-
-@media (min-width: 980px) {
-    .navbar-header img {
-        width: 476px;
-        height: 103px;
-    }
-}
-
-@media (min-width: 768px) and (max-width: 979px) {
-    .navbar-header img {
-        width: 376px;
-        height: 83px;
-    }
-}
-
-@media (max-width: 767px) {
-    .navbar-header img {
-        width: 236px;
-        height: 83px;
-    }
-}
-
-@media (max-width: 480px) {
-    .navbar-header img {
-        width: 100px;
-        height: 73px;
-        display: inline;
-    }
 }
 
 .intelekt-nav-left, .navbar-right {
@@ -58,8 +25,7 @@ body {
 
 .modules-buttons button {
     margin: 10px;
-    width: 90%;
-    padding: 4%;
+    width: 40%;
 }
 
 .modules-lect-button a, .modules-lect-button button {
@@ -75,6 +41,10 @@ body {
     margin-left: 2%;
 }
 
+iframe {
+    margin-left: 9%;
+}
+
 .lectureBTN {
     margin-left: 40%;
     margin-bottom: 1%;
@@ -85,16 +55,12 @@ body {
     margin-left: 4px;
 }
 
-/*Modules page*/
-
-iframe {
-    margin-left: 9%;
-}
-
 .date-deadline {
     float: right;
 }
-
+.LecturerPanel {
+    float: right;
+}
 .textnotes {
     width: 100%;
 }
@@ -103,115 +69,15 @@ iframe {
     width: 80% !important;
 }
 
-.lecturesUploaded {
+.question{
+    border: solid 1px;
+    font-size: 12px;
+}
+.questionForm{
+    font-weight: bolder;
+    font-size: 14px;
     text-align: center;
-}
-
-.formInlineUp {
-    display: inline !important;
-}
-
-.formInlineUp input {
-    width: 64% !important;
-}
-
-.formInlineMargin {
-    margin-top: 3%;
-}
-
-/*Firepad additional code*/
-#firepad-container {
-    position: relative;
-    margin: 20px auto;
-    width: 880px;
-    height: 880px;
-    background: white;
-    -moz-box-shadow: 0 5px 25px #333;
-    -webkit-box-shadow: 0 5px 25px #333;
-    box-shadow: 0 5px 25px #333;
-}
-
-#firepad-container .firepad-userlist {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    height: auto;
-    width: 175px;
-}
-
-#firepad-container .firepad {
-    position: absolute;
-    left: 175px;
-    right: 0;
-    height: 100%;
-    width: auto;
-}
-
-#userlist {
-      position: absolute; align: centre; left: 0; top: 0; bottom: 0; height: auto;
-      width: 175px;
-    }
-
-#firepad {
-      position: absolute; align: centre; left: 0; top: 0; bottom: 0; right: 0; height: auto;
-    }
-
-/*Forum css*/
-.forumlike {
-    margin-bottom: 6px;
-    margin-right: 4px;
-}
-
-.askbtn {
-   margin-left: 80%;
-}
-
-
-#topic{
-    font-size: 30px;
-    text-align: center;
-    margin-left: 20%;
-}
-
-.responsebody{
-    background-color: #E8E8E8;
-    border-top-left-radius: 1em;
-    border-top-right-radius: 1em;
-    border-bottom-right-radius: 1em;
-    border-bottom-left-radius: 1em;
-}
-
-
-#edit {
-    margin-left: 80%;
-}
-
-.forumlike {
-    margin-bottom: 6px;
-    margin-right: 4px;
-}
-
-.askbtn {
-   margin-left: 80%;
-}
-
-
-#topic{
-    font-size: 30px;
-    text-align: center;
-    margin-left: 20%;
-}
-
-.responsebody{
-    background-color: #E8E8E8;
-    border-top-left-radius: 1em;
-    border-top-right-radius: 1em;
-    border-bottom-right-radius: 1em;
-    border-bottom-left-radius: 1em;
-}
-
-
-#edit {
-    margin-left: 80%;
+    width: 50%;
+    margin-left: 25%;
+    border: solid 2px;
 }
