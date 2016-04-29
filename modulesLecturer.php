@@ -240,7 +240,7 @@ $_SESSION['moduleID'] = $moduleID;
                 
                   echo "<div class='modal-body'>
                   <h4 class='modal-title'> ".$materialTitle." </h4>";
-                  echo "<div><img src=".$file." height='350px' width='80%'></div>";
+                  echo "<div><iframe src=".$file." width='80%;' height='350px;'></iframe></div>";
               }
               
               echo "
