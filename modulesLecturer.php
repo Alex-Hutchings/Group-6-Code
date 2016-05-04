@@ -49,6 +49,11 @@ include_once("lectMenu.php");
 
      <!-- script that shows/hides the uplaod container -->
     <script>
+           $(document).ready(function(){
+        $(".FAQpanelhead").click(function(){
+            $(".FAQpanelbody").toggle();
+        });
+    });
         $(document).ready(function(){
             $(".btnUpload").click(function(){
                 $(".toUpload").show();
@@ -199,9 +204,33 @@ $_SESSION['moduleID'] = $moduleID;
                     <input type="submit" value='Upload'>
                 </form>
 
-            </div>
-            </div>
 
+
+            <div class="col-md-5">
+            <div class="well">
+                <div class="panel panel-default">
+                  <div class="panel-heading"><span data-toggle="modal" data-target="#FAQModal"  data-backdrop="static" data-keyboard="false">Enter an FAQ into the system</span><span class="glyphicon glyphicon-menu-up glypbuttons FAQpanelhead"></span></div>
+                  <div class="panel-body FAQpanelbody"  data-toggle="modal" data-target="#FAQModal"  data-backdrop="static" data-keyboard="false" style="display:none;">
+                    <?php
+                    $query = 'SELECT * FROM FAQ WHERE Module_ID= "'.$_SESSION['moduleID'].'"';
+                    $result = mysqli_query($db, $query) or die(mysqli_error($db));
+                    while ($row1 = mysqli_fetch_assoc($result)){
+                      $question = $row1['Question'];
+                      $answer = $row1['Answer'];
+                      echo '<p>Q:'.$question.'</p>
+                         <p>A:'.$answer.'</p>';
+                   }
+                  ?>
+                  <div id="FAQadd">
+                     <form id="FAQadd" name="addfaq" action="faqAdd.php" method="post">
+                         <input type="text" name="question" id="question" placeholder="Enter Question"><br>
+                         <input type="text" name="answer" id="answer" placeholder="Enter Answer">
+                         <button type="submit" onclick ="emptyFAQUpload(this)">Post FAQ</button>
+                     </form>
+                   </div>
+                </div>
+              </div>
+            </div>
             <!-- iframe that will be used for lectures display-->
             <!-- Modal -->
       <div class="modal fade" id="LectureModal" role="dialog">
@@ -240,7 +269,7 @@ $_SESSION['moduleID'] = $moduleID;
                 
                   echo "<div class='modal-body'>
                   <h4 class='modal-title'> ".$materialTitle." </h4>";
-                  echo "<div><iframe src=".$file." width='80%;' height='350px;'></iframe></div>";
+                  echo "<div><img src=".$file." height='350px' width='80%'></div>";
               }
               
               echo "
